@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+.nav ol{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: #0e0c0c; */
+    color: rgb(252, 250, 248);
+}
+.nav ol li{
+    margin: 20px;
+    list-style-type: none;
+}
+h1{
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}
+p{
+   text-align: center;
+   margin-top: 20px;
+   font-size: 20px;
+   font-weight: 600;
+}
+
+.nav::before{
+    background: url('images/pexels-maximilian-oeverhaus-7592708.jpg');
+    content:"";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+}

@@ -1,0 +1,92 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.container{
+    background-color: #da1e1e;
+    width: 50vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+}
+a{
+    margin: 10px;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.form-container{
+      background-color: #3bbb2a;
+      width: 50vw;
+      height: 50vh;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 3px solid black;
+
+}
+.form-container .form{
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"] {
+    background-color: #e42424;
+    color: white;
+}
+input[type="email"] {
+     background-color: #2713d6;
+     color: white;
+}
+
+.list-container{
+    width: 50vw;
+    height: 50vh;
+    background-color: #b9dd17;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+/* nth child selector  */
+/* 
+li:nth-child(even){
+    color: #e42424; */
+/* } */
+/* li:nth-child(odd) {
+    color: aqua; 
+} */
+
+/* n=0 1,2,3 */
+/* 
+li:nth-child(2n+1) {
+color: darkviolet;
+} */
+
+/* li:nth-child(3n+2) {
+    color: #e42424;
+} */
+
+.para-container{
+    width: 50vw;
+    height: 50vh;
+    background-color: #8f1184;
+    margin: auto;
+
+}
+div li p{
+    color: rgb(245, 33, 33);
+}
+
+div > p {
+    color: #2c2abb;
+}

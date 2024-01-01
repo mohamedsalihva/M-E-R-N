@@ -1,0 +1,131 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+
+}
+
+.nav ol{
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    list-style-type: none;
+    color: rgba(255, 255, 255, 0.746);
+    background-color: #151414;
+    font-size:medium;
+}
+.nav ol li{
+    padding: 10px;
+    margin: 10px;
+}
+.container{
+    background-color:#1c2739;
+}
+
+.offer{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+.offer h3{
+    padding: 10px;
+    padding-top: 10px;
+    color: white;
+}
+.offer h4{
+    color: #f39a45;
+}
+
+
+.container1 .phone {
+    text-align: center;
+    padding-top: 60px;
+    color: white;
+} 
+ .container1  h1{
+    font-size: 50px;
+ }
+
+.buy{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding-top: 20px;
+   font-size: 20px;
+}
+
+.buy a{
+    padding-right: 40px;
+    padding-left: 40px;
+    color: #2997ff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 20px;
+}
+.container1::before{
+    background: url('images/iphone-15-pro_overview__f8jz7aagka2q_og.png');
+    content: "";
+    width: 100vw;
+    height: 80vh;
+    position: absolute;
+    z-index: -1;
+}
+
+
+
+.container2{
+    color: rgb(21, 20, 20);
+    padding-top: 450px;
+    margin: auto;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.heading h1{
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    font-size: 50px;
+
+}
+.heading h2{
+    padding-bottom: 20px;
+}
+
+.newlink a{
+    padding-right: 40px;
+    padding-left: 40px;
+    color: #2997ff;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 20px;
+    
+}
+.container3 img{
+    width: 50vw;
+    height: 50vh;
+    padding-top: 20px;
+}
+
+.container-4{
+    display: flex;
+    /* justify-content: space-around; */
+}
+
+.images{
+    display: flex;
+    width: 100vw;
+    height: 60vh;
+    padding-top: 30px;
+}
+
+
+.container-5 {
+    display: flex;
+}

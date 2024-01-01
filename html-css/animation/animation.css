@@ -1,0 +1,45 @@
+.container{
+    background-color: #b70e0e;
+    margin: auto;
+    height: 395px;
+    width: 1280px;
+    position: relative;
+}
+.box{
+    background-color: #0bca24;
+    color: black;
+    height: 100px;
+    width: 100px;
+    animation: animation2 5s ease-in-out 1s 3 backwards;
+    position: absolute;
+} 
+@keyframes animation1{
+    from{
+        width: 250px;
+    }
+    to{
+        width: 800px;
+    }
+}
+@keyframes animation2{
+    0%{
+        top: 0px;
+        left: 0px;
+    }
+    25%{
+         top: 295px;
+         left: 0px;
+    }
+    50%{
+        top: 295px;
+        left: 1180px;
+    }
+    75%{
+        top: 0px;
+        left: 1180px;
+    }
+    100%{
+        top: 0px;
+        left: 0px;
+    }
+}

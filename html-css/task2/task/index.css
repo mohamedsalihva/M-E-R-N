@@ -1,0 +1,11 @@
+h1 {
+    text-transform: capitalize;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+ div .para1{
+    font-size: 25px;
+}
+div .para2{
+    font-size: 11px;
+}

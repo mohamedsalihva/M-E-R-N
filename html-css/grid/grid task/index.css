@@ -1,0 +1,54 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.logo {
+    grid-area: logo;
+}
+
+.vedio {
+    grid-area: vedio;
+}
+
+.image {
+    grid-area: image;
+}
+
+.item{
+    padding: 20px;
+}
+
+
+.container{
+    display: grid;
+    grid-template-areas:
+    'logo . . .' 
+    'vedio vedio vedio vedio'
+    'image image image image';
+   
+}
+
+
+
+
+@media (max-width:786px) {
+    .logo{
+        display: flex;
+        flex-wrap: wrap;
+  
+    }
+    .vedio .vedio{
+        display: flex;
+        flex-wrap: wrap;
+        
+    }
+    .image{
+        display: flex;
+
+    }
+}
+
+
+

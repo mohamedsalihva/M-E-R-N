@@ -1,0 +1,23 @@
+.cstm-class {
+    border: 2px solid red;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.FOOTER{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+@media (max-width:1023px){
+    .FOOTER{
+        display: flex;
+        flex-wrap: wrap;
+    }
+ 
+}
