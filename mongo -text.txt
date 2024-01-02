@@ -80,7 +80,7 @@ db.users. find({name: {$eq: "John"}}) //Get all the usens with the name John
 
 db.users. find({name: {Sne: "John"}}) //Get all the users whose name not equal to John
 
-db.users. find({age: $gt: 12}}) //Get all the users whose age greater than 12
+db.users. find({age: {$gt: 12}}) //Get all the users whose age greater than 12
 
 db.users.find({age: {$gte : 10}}) //Get all the users whose age greater than 10
 
