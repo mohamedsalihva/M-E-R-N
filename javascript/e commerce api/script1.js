@@ -12,8 +12,8 @@
    xhr.onreadystatechange = function(){
     console.log("readystate:",xhr.readyState);
 
-      let content = document.getElementById('content');
-      console.log("content:",content);
+      let content = document.getElementById('cards');
+      console.log("cards:",cards);
 
     if (xhr.readyState == 4){
 
