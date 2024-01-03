@@ -5,15 +5,27 @@
     box-sizing: border-box;
 }
  
+#cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
 
+    
+}
 .card{
-    width: 30vw;
-    height: 10vh;
+    width: 10rem;
+   
 }
 .images{
-    width: 70px;
+    margin: auto;
+    width: 90px;
     height: 70px;
 }
 .titlecards{
     font-size: 15px;
+    text-align: center;
+}
+h6{
+    text-align: center;
 }

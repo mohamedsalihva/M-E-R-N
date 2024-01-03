@@ -35,14 +35,14 @@
       for (let i=0; i<parsed_response.length; i++){
         datas+=`
         
-    <div class="container">
+    <div id="cards">
     <div class="card">
         <h1 class="titlecards">${parsed_response[i].title}</h1>
         <img  src=${parsed_response[i].image} alt="" class="images">
-        <p>${parsed_response[i].discription}</p>
-        <p class="category">${parsed_response[i].category}</p>
-        <p class="price">${parsed_response[i].price}</p>
-    
+        <h6> ${parsed_response[i].discription}</h6>
+        <h6 class="category">${parsed_response[i].category}</h6>
+        <h6 class="price">${parsed_response[i].price}</h6>
+    </div>
     </div>`
       }
       content.innerHTML = datas;
