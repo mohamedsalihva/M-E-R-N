@@ -40,7 +40,7 @@ const server = http.createServer((req,res) =>{
 
 
   //collect the data as its comes in chunks
-  req.on('data',(chunk)=>{
+    req.on('data',(chunk)=>{
     console.log("chunk:",chunk);
     console.log("chunk.tostring():",chunk.tostring());
     body = body + chunk.tostring();
@@ -49,8 +49,8 @@ const server = http.createServer((req,res) =>{
 
 
   //prosess the form data on end of the request
-  req.on('end',()=>{
-  const formData = querystring.parse(body);
+  req.on('end',()=> {
+  const formDatanode = querystring.parse(body);
   console.log("formData:",formData);
 
 

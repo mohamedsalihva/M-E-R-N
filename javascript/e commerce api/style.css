@@ -17,7 +17,7 @@
     flex-wrap: wrap;
     justify-content: center;
     margin: 20px;
-    
+   
 
  
 }
@@ -28,6 +28,7 @@
     width: 25vw;
     height: 50vh;
    padding: 10px;
+
    
    
 }
@@ -35,6 +36,7 @@
     margin: auto;
     width: 150px;
     height: 150px;
+    
 }
 .titlecards{
     font-size: 20px;
@@ -51,3 +53,5 @@ h6.category,.price{
     font-weight: 800;
     margin-top: 10px;
 }
+
+
