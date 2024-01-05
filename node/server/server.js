@@ -18,7 +18,9 @@ const url = require('url');
 const fs = require('fs')
 const querystring =('querystring')
 const port= 3000;
+const {MongoClient} = require('mongodb');
 
+const client = new MongoClient("mongodb://localhost:27017")
 const server = http.createServer((req,res) =>{
 
   //get the request url
@@ -68,6 +70,18 @@ const server = http.createServer((req,res) =>{
 
 });
 
-  server.listen(port,()=>{
-  console.log(`server running at http://localhost:${port}`);
-  });
+ async function connect(){
+  try {
+    await client.connect();
+    console.log("database connectiopn established");
+  } catch (error) {
+    console.log("database connectiopn not established");
+    console.log("error:",error)
+  }finally{
+
+    server.listen(port,()=>{
+      console.log(`server running at http://localhost:${port}`);
+      });
+  }
+}
+connect();
