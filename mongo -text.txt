@@ -13,7 +13,7 @@ CRUD - create read update delete
 
 db.users.insertOne({name :"salih"}) // creates a new document inside the 'user' collection 
 
-db.users.insertMany({name :"salih"}),({name :"mosalih"}) // create multiple document inside the 'users' collection
+db.users.insertMany[{name :"salih"}],[{name :"mosalih"}] // create multiple document inside the 'users' collection
 
 
 {
