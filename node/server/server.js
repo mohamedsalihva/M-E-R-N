@@ -16,7 +16,7 @@
 const http = require('http');
 const url = require('url');
 const fs = require('fs')
-const querystring =('querystring')
+const queryString = require('querystring')
 const port= 3000;
 const {MongoClient} = require('mongodb');
 
@@ -44,22 +44,22 @@ const server = http.createServer((req,res) =>{
   //collect the data as its comes in chunks
     req.on('data',(chunk)=>{
     console.log("chunk:",chunk);
-    console.log("chunk.tostring():",chunk.tostring());
-    body = body + chunk.tostring();
+    console.log("chunk.toString() :",chunk.toString() );
+    body = body + chunk.toString();
     console.log("body:",body);
   });
 
 
   //prosess the form data on end of the request
   req.on('end',()=> {
-  const formDatanode = querystring.parse(body);
-  console.log("formData:",formData);
+  const Datanode = queryString.parse(body);
+  console.log("Datanode:",Datanode);
 
 
   //do something withthe submitted data (eg ; savet to the database)
-  console.log("name:", formData.name);
-  console.log("email:", formData.email);
-  console.log("password:", formData.password);
+  console.log("name:", Datanode.name);
+  console.log("email:", Datanode.email);
+  console.log("password:", Datanode.password);
   })
 
   res.writeHead(200,{'content-type':'text/plain'});
