@@ -18,10 +18,14 @@ const url = require('url');
 const fs = require('fs')
 const queryString = require('querystring')
 const port= 3000;
-const {MongoClient} = require('mongodb');
+const {MongoClient, DB} = require('mongodb');
 
 const client = new MongoClient("mongodb://localhost:27017")
-const server = http.createServer((req,res) =>{
+const server = http.createServer(async(req,res) =>{
+const db = client.db("users");
+const collection = db.collection("user_coll")
+
+
 
   //get the request url
   console.log("url:",req.url);
@@ -66,16 +70,26 @@ const server = http.createServer((req,res) =>{
   res.end('form submitted succesfully');
  }
 
+if(parsed_url.pathname === '/getData' && req.method === 'GET'){
+  //retreive dorm data from the collectoin in database
+  let formData = await collection.find().toArray();
+  console.log("formData:", formData);
 
+  let jsonFormdata =JSON.stringify(formData);
+  console.log("formData:",formData);
+
+  res.writeHead(200,{"Content-Type" : "Text/json"});
+  res.end(jsonFormdata);
+}
 
 });
 
  async function connect(){
   try {
     await client.connect();
-    console.log("database connectiopn established");
+    console.log("database connection established");
   } catch (error) {
-    console.log("database connectiopn not established");
+    console.log("database connection not established");
     console.log("error:",error)
   }finally{
 
