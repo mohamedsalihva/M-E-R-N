@@ -35,7 +35,7 @@ if(parsedUrl.pathname == '/'){
 
 }else if(parsedUrl.pathname === '/Get_user.html'){
   res.writeHead(200,{"Content-Type":'text/html'});
-  res.end(fs.readFileSync('../client/Get_user.html'))
+  res.end(fs.readFileSync('../client/get_user.html'))
   
 }else if(parsedUrl.pathname=== '/style.css'){
   res.writeHead(200,{"Content-Type":'text/css'});
