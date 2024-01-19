@@ -6,9 +6,9 @@ const url = require('url');
 const fs = require('fs');
 const queryString = require('querystring');
 const { error } = require('console');
-const {MongoClient,ObjectId}= require('mongodb');
+const {MongoClient, ObjectId}= require('mongodb');
 
-const client = new MongoClient("mongodb://127.0.0.1:27017/");
+const client = new MongoClient("mongodb://127.0.0.1:27017");
 
 const server = http.createServer(async(req, res) => {
 
@@ -26,28 +26,22 @@ const server = http.createServer(async(req, res) => {
 
 
 if(parsedUrl.pathname == '/'){
-
   res.writeHead(200,{'content-Type' : 'text/html'});
   res.end(fs.readFileSync('../client/index.html'))
 
-
-}else if(parsedUrl.pathname === '/add_list.html'){
-
+}else if(parsedUrl.pathname === '/addData.html'){
   res.writeHead(200,{"Content-Type":'text/html'});
-  res.end(fs.readFileSync('../client/add_list.html'))
+  res.end(fs.readFileSync('../client/addData.html'))
 
-}else if(parsedUrl.pathname === '/get_list.html'){
-
+}else if(parsedUrl.pathname === '/getData.html'){
   res.writeHead(200,{"Content-Type":'text/html'});
-  res.end(fs.readFileSync('../client/get_list.html'))
-
+  res.end(fs.readFileSync('../client/getData.html'))
+  
 }else if(parsedUrl.pathname=== '/style.css'){
-
   res.writeHead(200,{"Content-Type":'text/css'});
   res.end(fs.readFileSync('../client/style.css'))
 
 }else if(parsedUrl.pathname === '/script.js'){
-
   res.writeHead(200,{"Content-Type":'text/javascript'});
   res.end(fs.readFileSync('../client/script.js'))
 }
@@ -58,7 +52,7 @@ if(req.method === 'POST' && parsedUrl.pathname === '/submit'){
 
   //collect data as it come in chunks
   req.on('data', (chunk)=> {
-    console.log("Reached here in data")
+    console.log("Reached hered in data")
 
     console.log("chunks : ",chunk);
     console.log("chunk.toString() :", chunk.toString());
@@ -71,7 +65,7 @@ if(req.method === 'POST' && parsedUrl.pathname === '/submit'){
 req.on('end',async()=> {
   console.log("body :",body);
   const formData = queryString.parse(body);
-  console.log('forData :', formData);
+  console.log('formData :', formData);
 
 
 //do someting with submitted data
@@ -90,10 +84,10 @@ await collection.insertOne(formData)
 })
 });
 //send a response
- res.writeHead(200,{'Content-Type' : 'text/plain'});
- res.end("form submitted successfully");
+res.writeHead(200,{'Content-Type' : 'text/plain'});
+res.end("form data submitted successfully!");
 
- }
+}
 if(req.method ==='GET' && parsedUrl.pathname === '/getData'){
   const formData =collection.find();
   console.log("formData : ",formData);
@@ -120,10 +114,8 @@ if (req.method ==="PUT" && parsedUrl.pathname === '/editData'){
     console.log("data : ",data);
 
     let finalData = {
-      date : data.date,
-      time : data.time,
-      priority : data.priority,
       task : data.task,
+    
     }
 
     let id = data.id;
@@ -149,6 +141,8 @@ if (req.method ==="PUT" && parsedUrl.pathname === '/editData'){
   })
 }
 
+
+
 //delete
 
 if (req.method ==="DELETE" && parsedUrl.pathname === '/deleteData'){
@@ -163,10 +157,8 @@ if (req.method ==="DELETE" && parsedUrl.pathname === '/deleteData'){
     console.log("data : ",data);
 
     let finalData = {
-      date : data.date,
-      time : data.time,
-      priority : data.priority,
       task : data.task,
+    
     }
 
     let id = data.id;
@@ -192,6 +184,7 @@ if (req.method ==="DELETE" && parsedUrl.pathname === '/deleteData'){
 
   })
 }
+
 
 });
 

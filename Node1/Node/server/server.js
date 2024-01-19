@@ -65,7 +65,7 @@ if(req.method === 'POST' && parsedUrl.pathname === '/submit'){
 req.on('end',async()=> {
   console.log("body :",body);
   const formData = queryString.parse(body);
-  console.log('forData :', formData);
+  console.log('formData :', formData);
 
 
 //do someting with submitted data

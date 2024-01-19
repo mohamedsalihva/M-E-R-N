@@ -14,8 +14,6 @@
 // Addbtn.addEventListener('click',addTodolists);
 
 
-
-
 async function getData() {
     console.log("Hello world");
 
@@ -31,13 +29,22 @@ async function getData() {
     let rows = "";
 
     for (let i = 0; i < parsedData.length; i++) {
-        rows = rows +  `
+        rows = rows + //`
+            // <tr>
+            // <td>${parsedData[i]._id}</td>
+            // <td>${parsedData[i].pass}</id>
+            // <td>${parsedData[i].email}</id>
+            // <td>${parsedData[i].pass}</id>
+            // </tr>
+            // `
+            `
         <tr>
         <td>${parsedData[i]._id}</td>
-        <td><input type="task" name="task" id="task-${parsedData[i]._id}" value="${parsedData[i].task}" disabled=true></td>
-         <td><button onclick="handleEdit('${parsedData[i]._id}')">Edit</button></td>
-         <td><button onclick="handleSave('${parsedData[i]._id}')">Save</button></td>
-         <td><button onclick="handleDelete('${parsedData[i]._id}')">Delete</button></td>       
+        <td><input type="task" name="task" id="task-${parsedData[i]._id}"  value="${parsedData[i].task}" disabled=true ></input></td>
+        <td><button onclick="handleEdit('${parsedData[i]._id}')">Edit</button></td>
+        <td><button onclick="handleSave('${parsedData[i]._id}')">Save</button></td>
+        <td><button onclick="handleDelete('${parsedData[i]._id}')">Delete</button></td>
+        
         </tr>
         `
     }
@@ -55,22 +62,20 @@ function handleEdit(id) {
 
 }
 
-
 async function handleSave(id) {
     console.log("id : ", id);
 
-    let tasktag = document.getElementById(`task-${id}`)
-    console.log("tasktag : ", tasktag);
-    let task = tasktag.value;
+    let taskTag = document.getElementById(`task-${id}`)
+    console.log("taskTag : ", taskTag);
+    let task = taskTag.value;
     console.log("task : ",task)
-
 
 
     let data = {
         id,
         task,
+    
     }
-
 
     let jsonData = JSON.stringify(data);
     console.log("jsonData : ", jsonData);
@@ -84,7 +89,7 @@ async function handleSave(id) {
 
     });
 
-    console.log("response : ",response);task
+    console.log("response : ",response);
     let parsed_response = await response.text();
 
     if (parsed_response == "success"){
@@ -92,23 +97,21 @@ async function handleSave(id) {
     }else{
         alert("Updation failed")
     }
+    getData();
 }
-
-
 
 async function handleDelete(id) {
     console.log("id : ", id);
 
-    let tasktag = document.getElementById(`task-${id}`)
-    console.log("tasktag : ", tasktag);
-    let task = tasktag.value;
+    let taskTag = document.getElementById(`task-${id}`)
+    console.log("taskTag : ", taskTag);
+    let task = taskTag.value;
     console.log("task : ",task)
-}
-
 
     let data = {
         id,
         task,
+
     }
 
     let jsonData = JSON.stringify(data);
@@ -131,3 +134,5 @@ async function handleDelete(id) {
     }else{
         alert("Deletion failed")
     }
+    getData();
+}
