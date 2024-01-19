@@ -1,101 +1,214 @@
-// console.log("helllo world")
-
-// const http = require('http');
-// const hostname = '127.0.0.1';
-// const port = 3000;
-// const server = http.createServer((req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader('Content-Type', 'text/plain');
-//   res.end('Hello World\n');
-// });
-// server.listen(port, hostname, () => {
-//   console.log(`Server running at http://${hostname}:${port}/`);
-// });
-
 
 const http = require('http');
+const hostname = '127.0.0.1';
+const port = 3001;
 const url = require('url');
-const fs = require('fs')
-const queryString = require('querystring')
-const port= 3000;
-const {MongoClient, DB} = require('mongodb');
+const fs = require('fs');
+const queryString = require('querystring');
+const { error } = require('console');
+const {MongoClient,ObjectId}= require('mongodb');
 
-const client = new MongoClient("mongodb://localhost:27017")
-const server = http.createServer(async(req,res) =>{
-const db = client.db("users");
-const collection = db.collection("user_coll")
+const client = new MongoClient("mongodb://127.0.0.1:27017/");
 
+const server = http.createServer(async(req, res) => {
 
+  //acess the database and collections
+  const db =  client.db ('users');
+  const collection = db.collection("user_coll");
+ 
+  //Get the req url
+  const reqUrl = req.url;
+  console.log("reqUrl : ",reqUrl);
 
-  //get the request url
-  console.log("url:",req.url);
-
-  //parse the request url
-  const parsed_url = url.parse(req.url);
-  console.log("parsed_url:",parsed_url)
-
-  //serve the html file on root request
-  if(parsed_url.pathname === '/'){
-    res.writeHead(200,{'content-type':'text/html'});
-    res.end(fs.readFileSync('../public/index.html'));
-  }
-
-  //handle form submission on post request to /sumbit
- if(parsed_url.pathname === '/add' && req.method === 'POST'){
-  let body ='';
+  //parse req url 
+  const parsedUrl = url.parse(reqUrl);
+  console.log("parsedUrl : ",parsedUrl);
 
 
-  //collect the data as its comes in chunks
-    req.on('data',(chunk)=>{
-    console.log("chunk:",chunk);
-    console.log("chunk.toString() :",chunk.toString() );
+if(parsedUrl.pathname == '/'){
+
+  res.writeHead(200,{'content-Type' : 'text/html'});
+  res.end(fs.readFileSync('../client/index.html'))
+
+
+}else if(parsedUrl.pathname === '/add_list.html'){
+
+  res.writeHead(200,{"Content-Type":'text/html'});
+  res.end(fs.readFileSync('../client/add_list.html'))
+
+}else if(parsedUrl.pathname === '/get_list.html'){
+
+  res.writeHead(200,{"Content-Type":'text/html'});
+  res.end(fs.readFileSync('../client/get_list.html'))
+
+}else if(parsedUrl.pathname=== '/style.css'){
+
+  res.writeHead(200,{"Content-Type":'text/css'});
+  res.end(fs.readFileSync('../client/style.css'))
+
+}else if(parsedUrl.pathname === '/script.js'){
+
+  res.writeHead(200,{"Content-Type":'text/javascript'});
+  res.end(fs.readFileSync('../client/script.js'))
+}
+
+//handle from submission on POST Rrequest to /submit
+if(req.method === 'POST' && parsedUrl.pathname === '/submit'){
+  let body='';
+
+  //collect data as it come in chunks
+  req.on('data', (chunk)=> {
+    console.log("Reached here in data")
+
+    console.log("chunks : ",chunk);
+    console.log("chunk.toString() :", chunk.toString());
     body = body + chunk.toString();
-    console.log("body:",body);
+    console.log("body :",body);
   });
 
 
-  //prosess the form data on end of the request
-  req.on('end',()=> {
-  const Datanode = queryString.parse(body);
-  console.log("Datanode:",Datanode);
+//process the form data on end of request
+req.on('end',async()=> {
+  console.log("body :",body);
+  const formData = queryString.parse(body);
+  console.log('forData :', formData);
 
 
-  //do something withthe submitted data (eg ; savet to the database)
-  console.log("name:", Datanode.name);
-  console.log("email:", Datanode.email);
-  console.log("password:", Datanode.password);
-  })
+//do someting with submitted data
+console.log(`task : ${formData.task},
+`);
 
-  res.writeHead(200,{'content-type':'text/plain'});
-  res.end('form submitted succesfully');
+//save to database
+//insert the data into collection
+await collection.insertOne(formData)
+.then((message)=> {
+  console.log("Document inserted succesfully",message);
+
+})
+.catch((error)=>{
+  console.log("database iserted error :",error.message?error.message:error)
+})
+});
+//send a response
+ res.writeHead(200,{'Content-Type' : 'text/plain'});
+ res.end("form submitted successfully");
+
  }
+if(req.method ==='GET' && parsedUrl.pathname === '/getData'){
+  const formData =collection.find();
+  console.log("formData : ",formData);
 
-if(parsed_url.pathname === '/getData' && req.method === 'GET'){
-  //retreive dorm data from the collectoin in database
-  let formData = await collection.find().toArray();
-  console.log("formData:", formData);
+  const formDataArr = await formData.toArray();
+  console.log("formDataArr : ",formDataArr);
 
-  let jsonFormdata =JSON.stringify(formData);
-  console.log("formData:",formData);
+  let jsonFormData = JSON.stringify(formDataArr);
+  console.log("jsonFormData : ",jsonFormData);
 
-  res.writeHead(200,{"Content-Type" : "Text/json"});
-  res.end(jsonFormdata);
+res.writeHead(200,{'Content-Type' : 'text/json'});
+res.end(jsonFormData);
+}
+
+if (req.method ==="PUT" && parsedUrl.pathname === '/editData'){
+  let body = ""
+  req.on('data',(chunks)=>{
+    console.log("chunks : ",chunks);
+    body = body + chunks.toString();
+    console.log("body : ",body)
+  });
+  req.on('end' ,async()=>{
+    let data = JSON.parse(body);
+    console.log("data : ",data);
+
+    let finalData = {
+      date : data.date,
+      time : data.time,
+      priority : data.priority,
+      task : data.task,
+    }
+
+    let id = data.id;
+    console.log("id : ",id);
+    console.log("typeOf(id) : ",typeof(id));
+
+    let _id = new ObjectId(id);
+    console.log("_id : ",_id);
+    console.log("typeOf(_id) : ",typeof(_id));
+
+    await collection.updateOne({_id},{$set : finalData})
+    .then((message)=>{
+      console.log("message : ",message);
+      res.writeHead(200,{"Content-Type" : "text/plain"});
+      res.end("success");
+    })
+    .catch((error)=>{
+      console.log("error : ",error);
+      res.writeHead(400,{"Content-Type" : "text/plain"});
+      res.end("failed");
+    })
+    
+  })
+}
+
+//delete
+
+if (req.method ==="DELETE" && parsedUrl.pathname === '/deleteData'){
+  let body = ""
+  req.on('data',(chunks)=>{
+    console.log("chunks : ",chunks);
+    body = body + chunks.toString();
+    console.log("body : ",body)
+  });
+  req.on('end' ,async()=>{
+    let data = JSON.parse(body);
+    console.log("data : ",data);
+
+    let finalData = {
+      date : data.date,
+      time : data.time,
+      priority : data.priority,
+      task : data.task,
+    }
+
+    let id = data.id;
+    console.log("id : ",id);
+    console.log("typeOf(id) : ",typeof(id));
+
+    let _id = new ObjectId(id);
+    console.log("_id : ",_id);
+    console.log("typeOf(_id) : ",typeof(_id));
+
+    await collection.deleteOne({_id},{$set : finalData})
+    .then((message)=>{
+      console.log("message : ",message);
+      res.writeHead(200,{"Content-Type" : "text/plain"});
+      res.end("deleted");
+    })
+    .catch((error)=>{
+      console.log("error : ",error);
+      res.writeHead(400,{"Content-Type" : "text/plain"});
+      res.end("failed");
+    })
+    
+
+  })
 }
 
 });
 
- async function connect(){
-  try {
-    await client.connect();
-    console.log("database connection established");
-  } catch (error) {
-    console.log("database connection not established");
-    console.log("error:",error)
-  }finally{
+async function connect(){
+  await client.connect()
+  .then((messge)=>{
+    console.log("Database connection established");
 
+  })
+  .catch((error)=>{
+    console.log("Database error :",error.message?error.message:error);
+  })
+  .finally(()=>{
     server.listen(port,()=>{
-      console.log(`server running at http://localhost:${port}`);
-      });
-  }
+      console.log(`server running at http://localhost:3001`)
+    })
+  });
 }
+
 connect();
