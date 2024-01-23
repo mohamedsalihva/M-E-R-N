@@ -80,6 +80,7 @@ phoneno : ${formData.phn}`);
 
 //save to database
 //insert the data into collection
+
 await collection.insertOne(formData)
 .then((message)=> {
   console.log("Document inserted succesfully",message);
