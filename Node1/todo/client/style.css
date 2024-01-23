@@ -26,9 +26,10 @@ form {
 }
 
 #task{
-  min-width: 30vw;
-  margin-left: 60px;
+  min-width: 35vw;
+  margin-left: 50px;
   min-height: 30px;
+  margin: 20px;
 }
 
 button {
@@ -43,7 +44,7 @@ table,tr,th,td {
   font-weight: 600;
 margin: auto;
 margin-top: 50px;
-border: 2px  black solid;
+
 border-collapse: collapse;
 background-color: white;
 font-size: 15px;
