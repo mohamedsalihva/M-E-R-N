@@ -6,10 +6,10 @@ const {MongoClient}= require('mongodb');
 
 const client = new MongoClient("mongodb://127.0.0.1:27017");
 
-const port =3000;
+const port =3001;
 
 const db =  client.db ('users');
-  const collection = db.collection("user_coll");
+  const  collection = db.collection("user_coll");
 
 console.log("__dirname:",__dirname);
 
@@ -37,14 +37,6 @@ app.post('/submit',(req,res)=>{
 let body = req.body;
 console.log("body:", body);
 
-req.on('end',async()=> {
-  console.log("body :",body);
-  const formData = queryString.parse(body);
-  console.log('formData :', formData);
-
-//save to database
-//insert the data into collection
-
 await collection.insertOne(formData)
 .then((message)=> {
   console.log("Document inserted succesfully",message);
@@ -53,12 +45,10 @@ await collection.insertOne(formData)
 .catch((error)=>{
   console.log("database iserted error :",error.message?error.message:error)
 })
+res.status(200).send("success")
 });
 
-res.writeHead(200,{'Content-Type' : 'text/plain'});
-res.end("success");
 
-})
 
 
 async function connect(){
@@ -72,7 +62,7 @@ async function connect(){
     })
     .finally(()=>{
       app.listen(port,()=>{
-        console.log(`server running at http://localhost:3000`)
+        console.log(`server running at http://localhost:3001`)
       })
     });
   }
