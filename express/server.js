@@ -1,18 +1,13 @@
 const express = require ('express')
-
 const app = express();
-
-const {MongoClient}= require('mongodb');
-
+const {MongoClient, ObjectId}= require('mongodb');
 const client = new MongoClient("mongodb://127.0.0.1:27017");
-
 const port =3001;
 
 const db =  client.db ('users');
-  const  collection = db.collection("user_coll");
+const  collection = db.collection("user_coll");
 
 console.log("__dirname:",__dirname);
-
 app.use(express.static(__dirname + "/client"));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
@@ -33,23 +28,96 @@ app.get(`/test`,(req,res,next)=>{
 
 })
 
-app.post('/submit',(req,res)=>{
+
+
+
+
+app.post('/submit',async(req,res)=>{
 let body = req.body;
 console.log("body:", body);
 
-await collection.insertOne(formData)
-.then((message)=> {
-  console.log("Document inserted succesfully",message);
+// await collection.insertOne(req.body)
+// .then((message)=> {
+//   console.log("Document inserted succesfully",message);
 
-})
-.catch((error)=>{
-  console.log("database iserted error :",error.message?error.message:error)
-})
+// })
+// .catch((error)=>{
+//   console.log("database iserted error :",error.message?error.message:error)
+// })
+
 res.status(200).send("success")
 });
 
 
 
+
+app.get('/getData',async(req,res) => {
+
+  const formData =collection.find();
+  console.log("formData : ",formData);
+  
+  const formDataArr = await formData.toArray();
+  console.log("formDataArr : ",formDataArr);
+
+  let jsonFormData = JSON.stringify(formDataArr);
+  console.log("jsonFormData : ",jsonFormData);
+
+
+   res.status(200).send(jsonFormData)
+});
+
+
+
+
+app.put('/editData',async(req,res)=>{
+  let body = req.body;
+  console.log("body:",body);
+  
+
+  res.status(200).send("success")
+})
+
+
+
+
+
+ app.delete('/deleteData',async(req,res)=>{
+    let data = req.body;
+    console.log("data :",data)
+    
+    let finalData = {
+      name : data.name,
+      email : data.email,
+      password : data.password,
+    }
+
+    let id = data.id;
+    console.log("id : ",id);
+    console.log("typeOf(id) : ",typeof(id));
+
+    let _id = new ObjectId(id);
+    console.log("_id : ",_id);
+    console.log("typeOf(_id) : ",typeof(_id));
+
+    
+
+    await collection.deleteOne({_id},{$set : finalData})
+    .then((message)=>{
+      console.log("message : ",message);
+      res.writeHead(200,{"Content-Type" : "text/plain"});
+      res.end("deleted");
+    })
+    .catch((error)=>{
+      console.log("error : ",error);
+      res.writeHead(400,{"Content-Type" : "text/plain"});
+      res.end("failed");
+    })
+    
+  })
+
+
+    
+  
 
 async function connect(){
     await client.connect()
