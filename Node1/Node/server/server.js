@@ -107,6 +107,7 @@ if(req.method ==='GET' && parsedUrl.pathname === '/getData'){
 
 res.writeHead(200,{'Content-Type' : 'text/json'});
 res.end(jsonFormData);
+
 }
 
 if (req.method ==="PUT" && parsedUrl.pathname === '/editData'){

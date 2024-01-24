@@ -13,14 +13,7 @@ async function getData() {
     let rows = "";
 
     for (let i = 0; i < parsedData.length; i++) {
-        rows = rows + //`
-            // <tr>
-            // <td>${parsedData[i]._id}</td>
-            // <td>${parsedData[i].pass}</id>
-            // <td>${parsedData[i].email}</id>
-            // <td>${parsedData[i].pass}</id>
-            // </tr>
-            // `
+        rows = rows + 
             `
         <tr>
         <td>${parsedData[i]._id}</td>
