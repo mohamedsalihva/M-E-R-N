@@ -1,4 +1,52 @@
+async function submitForm(){
+  const name =document.getElementById('name').value
+
+  console.log("name:",name);
+
+  const email = document.getElementById('email').value
+  console.log("email:",email);
+
+
+  const password = document.getElementById('password').value
+  console.log("password:",password);
+
+let data ={
+    name,
+    email,
+    password,
+}
+let json_data = JSON.stringify(data);
+
+let response = await fetch ('/submit',{
+    method : "post",
+    headers :{
+        "content-Type" : "application/json",
+
+    },
+    body :json_data,
+});
+
+let parsed_response= await response .text();
+console.log("parsed_response:",parsed_response);
+
+
+if (parsed_response === "success"){
+    alert('form submitted successfully');
+    return;
+}else{
+    alert('form submitted failed');
+    return;
+}
+
+}
+
+
+
+
+
+
 async function getData() {
+
     console.log("Hello world");
 
 
@@ -32,7 +80,7 @@ async function getData() {
     content.innerHTML = rows;
 }
 
-getData();
+// getData();
 
 function handleEdit(id) {
     console.log("id : ", id);
@@ -99,7 +147,7 @@ async function handleSave(id) {
     }else{
         alert("Updation failed")
     }
-    getData();
+    // getData();
 }
 
 async function handleDelete(id) {
@@ -149,5 +197,27 @@ async function handleDelete(id) {
     }else{
         alert("Deletion failed")
     }
-    getData();
+
+}
+
+function validateName() {
+    const name = document.getElementById('name').value;
+    console.log("name:",name);
+
+    const name_error = document.getElementById(`name-error`);
+
+    const name_regex = /^[A-Za-Z]{2,30}( [A-Za-z]{2,30})?$/;
+
+    let isNamevalid = name_regex.test(name);
+    console.log("isNamevalid:",isNamevalid);
+
+if (!isNamevalid) {
+    name_error.innerHTML = "invalid name";
+    return;
+}else{
+    name_error.innerHTML = "";
+    return;
+}
+
+
 }

@@ -17,6 +17,10 @@ form {
     text-align: center;
 }
 
+.name-error{
+color: red;
+}
+
 label {
     display: block;
     margin-bottom: 8px;

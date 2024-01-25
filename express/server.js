@@ -9,7 +9,7 @@ const  collection = db.collection("user_coll");
 
 console.log("__dirname:",__dirname);
 app.use(express.static(__dirname + "/client"));
-app.use(express.urlencoded({extended:false}));
+// app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
 app.get(`/test`,(req,res,next)=>{
