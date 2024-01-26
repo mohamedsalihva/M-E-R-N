@@ -17,8 +17,17 @@ form {
     text-align: center;
 }
 
-.name-error{
+#name-error{
 color: red;
+}
+
+#email-error{
+    color: red;
+}
+
+
+#password-error{
+    color: red;
 }
 
 label {

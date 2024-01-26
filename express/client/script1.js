@@ -1,4 +1,5 @@
-async function submitForm(){
+async function submitForm() {
+
   const name =document.getElementById('name').value
 
   console.log("name:",name);
@@ -18,15 +19,15 @@ let data ={
 let json_data = JSON.stringify(data);
 
 let response = await fetch ('/submit',{
-    method : "post",
+    method : "POST",
     headers :{
-        "content-Type" : "application/json",
+        "Content-Type" : "application/json",
 
     },
     body :json_data,
 });
 
-let parsed_response= await response .text();
+let parsed_response = await response.text();
 console.log("parsed_response:",parsed_response);
 
 
@@ -77,7 +78,7 @@ async function getData() {
         </tr>
         `
     }
-    content.innerHTML = rows;
+    content.innerHTML== rows;
 }
 
 // getData();
@@ -147,7 +148,7 @@ async function handleSave(id) {
     }else{
         alert("Updation failed")
     }
-    // getData();
+     getData();
 }
 
 async function handleDelete(id) {
@@ -200,24 +201,85 @@ async function handleDelete(id) {
 
 }
 
+
+
 function validateName() {
+
     const name = document.getElementById('name').value;
     console.log("name:",name);
 
     const name_error = document.getElementById(`name-error`);
 
-    const name_regex = /^[A-Za-Z]{2,30}( [A-Za-z]{2,30})?$/;
+    const name_regex = /^[A-Za-z]{2,30}( [A-Za-z]{2,30})?$/;
 
     let isNamevalid = name_regex.test(name);
-    console.log("isNamevalid:",isNamevalid);
+    console.log("isNamevalid:",isNamevalid)
 
 if (!isNamevalid) {
-    name_error.innerHTML = "invalid name";
+    name_error.innerHTML = "Invalid name";
+
     return;
+
 }else{
     name_error.innerHTML = "";
+
     return;
 }
+
+
+}
+
+function validateEmail() {
+
+   const email = document.getElementById('email').value;
+
+   console.log("email:",email);
+
+
+   const email_error =document.getElementById('email-error');
+
+   const email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+   let Emailvalid = email_regex.test(email);
+
+   console.log("Emailvalid:",Emailvalid)
+
+
+   if (!Emailvalid){
+    email_error.innerHTML = "Invalid email"
+    
+    return;
+
+   }else{
+
+    email_error.innerHTML=""
+    
+    return;
+
+   }
+}
+
+function validatePassword (){
+  
+    const password = document.getElementById('password').value
+
+    console.log("password:",password);
+
+    const password_error = document.getElementById(`password-error`);
+
+    const password_regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/;
+
+    let  passwordvalid = password_regex.test(password);
+    console.log("passwordvalid:",passwordvalid);
+
+    if (!passwordvalid){
+        password_error.innerHTML = "Invalid passsword"
+
+        return;
+    }else{
+        password_error.innerHTML=""
+        return;
+    }
 
 
 }
