@@ -13,7 +13,7 @@
 
 <body>
     <!-- <form action="/submit" method="post"> -->
-        <form>
+        <form  id="forms" onsubmit=" return validate()">
 
     <div id="name-section" class="section">
     <input id="name" name="name" type="text" placeholder="First Name" onkeyup="validateName()">
@@ -28,17 +28,17 @@
 <div id="email-error" class="error"></div>
 
 </div>
-
+ 
 
 <div id="password-section" class="section">
 
 <input id="password" type="password" name="password" placeholder="Password" onkeyup="validatePassword()">
 <div id="password-error" class="error"></div>
 
-</div>
+</div> 
 
 
-   <button type="button" onclick="submitForm()">submit</button>
+   <button id="button" type="submit" onclick="submitForm()">submit</button>
 
 </form>
 

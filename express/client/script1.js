@@ -1,3 +1,43 @@
+function  validate(){
+    let firstname =document.getElementById("name");
+    let emailaddress = document.getElementById("email");
+    let passworde = document.getElementById("password");
+
+    if(firstname.value === ""){
+        alert("please enter the firstname")
+        return false;
+    }
+
+    if(emailaddress.value === ""){
+        alert("please enter valid emailaddress")
+        return false;
+    }
+    if(passworde.value.trim === ""){
+        alert("please enter the password")
+        return false;
+    }
+    return true;
+}
+
+
+
+
+const form = document.getElementById("forms");
+
+
+form.addEventListener("submit", async(event)=>{
+    
+    const isvalid = await validate();
+
+    if(!isvalid){
+        event.preventDefault();
+    }else{
+        await submitForm();
+    }
+})
+
+
+
 async function submitForm() {
 
   const name =document.getElementById('name').value
@@ -40,6 +80,8 @@ if (parsed_response === "success"){
 }
 
 }
+
+
 
 
 
