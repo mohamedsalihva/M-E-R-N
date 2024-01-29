@@ -1,41 +1,3 @@
-function  validate(){
-    let firstname =document.getElementById("name");
-    let emailaddress = document.getElementById("email");
-    let passworde = document.getElementById("password");
-
-    if(firstname.value === ""){
-        alert("please enter the firstname")
-        return false;
-    }
-
-    if(emailaddress.value === ""){
-        alert("please enter valid emailaddress")
-        return false;
-    }
-    if(passworde.value.trim === ""){
-        alert("please enter the password")
-        return false;
-    }
-    return true;
-}
-
-
-
-
-const form = document.getElementById("forms");
-
-
-form.addEventListener("submit", async(event)=>{
-    
-    const isvalid = await validate();
-
-    if(!isvalid){
-        event.preventDefault();
-    }else{
-        await submitForm();
-    }
-})
-
 
 
 async function submitForm() {
@@ -57,6 +19,15 @@ let data ={
     password,
 }
 let json_data = JSON.stringify(data);
+
+
+
+if(name=="" || email=="" ||password==""){
+    alert("please enter a value")
+    return false
+}
+
+
 
 let response = await fetch ('/submit',{
     method : "POST",
@@ -80,9 +51,6 @@ if (parsed_response === "success"){
 }
 
 }
-
-
-
 
 
 
@@ -139,6 +107,8 @@ function handleEdit(id) {
     let password = document.getElementById(`password-${id}`)
     console.log("password : ", password);
     password.disabled = false;
+
+
 
 
 }
@@ -260,13 +230,15 @@ function validateName() {
 if (!isNamevalid) {
     name_error.innerHTML = "Invalid name";
 
-    return;
+    return ;
 
 }else{
     name_error.innerHTML = "";
 
-    return;
+    return ;
 }
+
+
 
 
 }

@@ -12,9 +12,11 @@ body {
 form {
     background-color: #fff;
     padding: 20px;
+    margin-top: 90px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(104, 153, 15, 0.1);
     text-align: center;
+    height: 30vh;
 }
 
 #name-error{
