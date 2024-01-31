@@ -1,44 +1,64 @@
- const express = require('express')
-const app = express()
-const dotenv = require ('dotenv');
+const express = require('express');
+const app = express();
+const dotenv = require('dotenv');
 const path = require('path');
 const fs = require('fs');
 dotenv.config();
 
 app.use(express.json());
 
-app.get('/test', (req, res) =>{
-   res.status(200).send("success")
-} );
+const PORT = process.env.PORT || 3000;
 
-app.post('/submit',(req,res)=>{
-    const datas = req.body;
-    console.log("datas:",datas);
-    let datas_arr = [];
-    datas_arr.push(datas);
+app.get('/test', (req, res) => {
+    res.status(200).send("success");
+});
 
+app.post('/submit', (req, res) => {
+    try {
+        const datas = req.body;
+        console.log("Received datas:", datas);
 
-    let json_datas = JSON.stringify(datas_arr);
-    let folderpath = './datas';
-    let fileName = 'datas.json';
-    let filepath = path.join(folderpath,filename);
+        const folderpath = './datas';
+        const fileName = 'datas.json';
+        const filepath = path.join(folderpath, fileName);
 
+        console.log("Filepath:", filepath);
 
-    if (!fs.existsSync(folderpath)){
-        fs.mkdirSync(folderpath,{recursive : true });
-    }
-    fs.writeFile(filepath,json_datas,(err)=>{
-        if (err){
-            res.status(400).send("failed")
-        }else{
-            res.status(200).send("success")
+        if (!fs.existsSync(folderpath)) {
+            console.log("Creating directory:", folderpath);
+            fs.mkdirSync(folderpath, { recursive: true });
         }
-    })
-})
-app.listen(process.env.port, () =>{
 
- console.log(`server runninng at http://localhost:${process.env.port}`);
+        let existingDatas = [];
 
-})
+        if (fs.existsSync(filepath)) {
+            const fileContent = fs.readFileSync(filepath, 'utf-8');
+            try {
+                existingDatas = JSON.parse(fileContent);
+            } catch (error) {
+                console.error("Error parsing existing data:", error);
+            }
+        }
+
+        if (!Array.isArray(existingDatas)) {
+            existingDatas = [];
+        }
+
+        existingDatas.push(datas);
+
+        fs.writeFileSync(filepath, JSON.stringify(existingDatas, null, 2));
+        console.log("File written successfully!");
+
+        res.status(200).send("success");
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});
+
 
 
