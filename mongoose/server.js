@@ -1,6 +1,6 @@
-const express = require ('express')
+const express = require ('express');
 const app = express();
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 let dotenv = require('dotenv')
 dotenv.config();
 
@@ -12,22 +12,22 @@ app.use(express.static(__dirname + "/client"));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
-const schema = new mongoose.schema({
+const schema = new mongoose.Schema({
   name : {
 
-    type : string,
+    type : String,
     required : true,
   },
 
   email : {
 
-    type : string,
+    type : String,
     required : true,
     unique :true,
   },
 
   password : {
-    type : string,
+    type : String,
     required : true,
   },
 });
@@ -67,13 +67,14 @@ app.post('/submit',async(req,res)=>{
     console.log("body:", body);
 
     let userfound = await model.findOne({email:body.email});
+   
 
     if(userfound){
       res.status(400).send("user already exists");
       return;
     }
 
-    let (new_user) = await model.create(body);
+     let new_user = await model.create(body);
 
     if(new_user){
       res.status(201).send("success");
@@ -85,7 +86,7 @@ app.post('/submit',async(req,res)=>{
     
   } catch (error) {
     console.log("errorr:",error);
-    res.status(400).send(eroorrr)
+    res.status(400).send(error)
   }
 
 });
@@ -189,22 +190,21 @@ app.put('/editData',async(req,res)=>{
     
   
 
-async function connect(){
+async function connect() {
+  try {
+    await mongoose.connect('mongodb://127.0.0.1:27017/users');
+    
+} catch (error) {
+  console.log("error:",error);
+  console.log("database connection established");
 
-    await client.connect()
-   .then((messge)=>{
-      mongoose.connect('mongodb://127.0.0.1:27017/users')
-      console.log("Database connection established");
-  
-    })
-    .catch((error)=>{
-      console.log("Database error :",error.message?error.message:error);
-    })
-    .finally(()=>{
-      app.listen(port,()=>{
-        console.log(`server running at http://localhost:5000`)
-      })
-    });
-  }
+}finally{
+  app.listen(process.env.PORT, () =>{
+    console.log(`server running at http://localhost${process.env.PORT}`);
+  })
+}
+
+
+}
   
   connect();
