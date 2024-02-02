@@ -85,7 +85,7 @@ app.post('/submit',async(req,res)=>{
 
     let passwordfound = await model.findOne({password:body.password});
     if(passwordfound){
-       res.status(400).send("password Already existed");
+       res.status(400).send(" user password Already existed");
        return
     }
      
@@ -202,10 +202,11 @@ app.put('/editData',async(req,res)=>{
 async function connect() {
   try {
     await mongoose.connect('mongodb://127.0.0.1:27017/users');
+    console.log("database connection established");
     
 } catch (error) {
   console.log("error:",error);
-  console.log("database connection established");
+
 
 }finally{
   app.listen(process.env.PORT, () =>{
