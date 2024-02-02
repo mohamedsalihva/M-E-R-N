@@ -66,13 +66,31 @@ app.post('/submit',async(req,res)=>{
     let body = req.body;
     console.log("body:", body);
 
-    let userfound = await model.findOne({email:body.email});
-   
 
+    //validate
+
+    let userfound =  await model.findOne({email:body.email});
+    
     if(userfound){
-      res.status(400).send("user already exists");
+      res.status(400).send("user email already exists");
       return;
     }
+
+    let namefound = await model.findOne({name:body.name});
+
+    if(namefound){
+        res.status(400).send("user name already exists");
+        return;
+    }
+
+    let passwordfound = await model.findOne({password:body.password});
+    if(passwordfound){
+       res.status(400).send("password Already existed");
+       return
+    }
+     
+
+
 
      let new_user = await model.create(body);
 
@@ -93,24 +111,15 @@ app.post('/submit',async(req,res)=>{
 
 
 
-
-app.get('/getData',async(req,res) => {
-
-  const formData = collection.find();
-  console.log("formData : ",formData);
-
-  const formDataArr = await formData.toArray();
-  console.log("formDataArr : ",formDataArr);
-
-  let jsonFormData = JSON.stringify(formDataArr);
-  console.log("jsonFormData : ",jsonFormData);
-
-
-
-
-   res.status(200).send(jsonFormData)
+app.get('/getData', async (req, res) => {
+  try {
+      const formDataArr = await model.find();
+      res.status(200).json(formDataArr);
+  } catch (error) {
+      console.error("Error:", error);
+      res.status(500).send("Internal Server Error");
+  }
 });
-
 
 
 
@@ -130,12 +139,13 @@ app.put('/editData',async(req,res)=>{
   console.log("id : ",id);
   console.log("typeOf(id) : ",typeof(id));
 
-  let _id = new ObjectId(id);
-  console.log("_id : ",_id);
-  console.log("typeOf(_id) : ",typeof(_id));
+  // let _id = new ObjectId(id);
+  // console.log("_id : ",_id);
+  // console.log("typeOf(_id) : ",typeof(_id));
 
 
-  await collection.updateOne({_id},{$set : finalData})
+  await model.updateOne({id},{$set : finalData})
+
   .then((message)=>{
     console.log("message : ",message);
     res.writeHead(200,{"Content-Type" : "text/plain"});
@@ -166,13 +176,12 @@ app.put('/editData',async(req,res)=>{
     console.log("id : ",id);
     console.log("typeOf(id) : ",typeof(id));
 
-    let _id = new ObjectId(id);
-    console.log("_id : ",_id);
-    console.log("typeOf(_id) : ",typeof(_id));
+    // let _id = new ObjectId(id);
+    // console.log("_id : ",_id);
+    // console.log("typeOf(_id) : ",typeof(_id));
 
-    
 
-    await collection.deleteOne({_id},{$set : finalData})
+    await model.deleteOne({id},{$set : finalData})
     .then((message)=>{
       console.log("message : ",message);
       res.writeHead(200,{"Content-Type" : "text/plain"});

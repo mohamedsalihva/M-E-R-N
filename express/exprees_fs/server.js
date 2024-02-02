@@ -56,6 +56,101 @@ app.post('/submit', (req, res) => {
     }
 });
 
+// ... (existing code)
+
+app.get('/getData', (req, res) => {
+    try {
+        const folderpath = './datas';
+        const fileName = 'datas.json';
+        const filepath = path.join(folderpath, fileName);
+
+        if (fs.existsSync(filepath)) {
+            const fileContent = fs.readFileSync(filepath, 'utf-8');
+            const existingDatas = JSON.parse(fileContent);
+            res.status(200).json(existingDatas);
+        } else {
+            res.status(404).send("No data found");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.put('/update/:id', (req, res) => {
+    try {
+        const folderpath = './datas';
+        const fileName = 'datas.json';
+        const filepath = path.join(folderpath, fileName);
+
+        const idToUpdate = req.params.id;
+        const newData = req.body;
+
+        if (!idToUpdate || !newData) {
+            res.status(400).send("Bad Request");
+            return;
+        }
+
+        if (fs.existsSync(filepath)) {
+            const fileContent = fs.readFileSync(filepath, 'utf-8');
+            let existingDatas = JSON.parse(fileContent);
+
+            const indexToUpdate = existingDatas.findIndex(data => data.id === idToUpdate);
+
+            if (indexToUpdate !== -1) {
+                existingDatas[indexToUpdate] = { id: idToUpdate, ...newData };
+
+                fs.writeFileSync(filepath, JSON.stringify(existingDatas, null, 2));
+                res.status(200).send("Update successful");
+            } else {
+                res.status(404).send("Data not found");
+            }
+        } else {
+            res.status(404).send("No data found");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+app.delete('/delete/:id', (req, res) => {
+    try {
+        const folderpath = './datas';
+        const fileName = 'datas.json';
+        const filepath = path.join(folderpath, fileName);
+
+        const idToDelete = req.params.id;
+
+        if (!idToDelete) {
+            res.status(400).send("Bad Request");
+            return;
+        }
+
+        if (fs.existsSync(filepath)) {
+            const fileContent = fs.readFileSync(filepath, 'utf-8');
+            let existingDatas = JSON.parse(fileContent);
+
+            const updatedDatas = existingDatas.filter(data => data.id !== idToDelete);
+
+            if (existingDatas.length !== updatedDatas.length) {
+                fs.writeFileSync(filepath, JSON.stringify(updatedDatas, null, 2));
+                res.status(200).send("Delete successful");
+            } else {
+                res.status(404).send("Data not found");
+            }
+        } else {
+            res.status(404).send("No data found");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+// ... (existing code)
+
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
