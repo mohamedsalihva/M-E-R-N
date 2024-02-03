@@ -16,4 +16,4 @@ const users = mongoose.Schema({
     }
 });
 
-module.exports =  mongoose.model("users",users);
+module.exports =  mongoose.model("user_coll",users);
