@@ -9,6 +9,7 @@ exports.createUser = async function(req, res) {
     let password = req.body.password;
 
     //Validations
+    
     let user = await users.findOne({email});
 
     if(user) {
@@ -57,6 +58,7 @@ exports.createUser = async function(req, res) {
 }
 
 exports.getUsers  = async function(req, res) {
+  
 
 }
 
