@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
-const userRoutes = require('./router/userRouter');
+const userRoutes = require('./router/authRouter');
 dotenv.config();
 const connect = require('./db/config');
 
@@ -14,6 +14,9 @@ app.use(express.urlencoded({extended : false}));
 
 //Parsing Json datas in all routes
 app.use(express.json());
+
+app.use(express.static(__dirname + "/client"));
+app.use(express.urlencoded({extended:false}));
 
 //UserRoutes
 app.use(userRoutes);

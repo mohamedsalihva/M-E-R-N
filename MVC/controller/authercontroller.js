@@ -4,12 +4,70 @@ const error_function = require("../utils/response-handler").error_function;
 
 
 
-exports.createUser((req,res)=>{
+exports.CreateUser = async function(req, res) {
    try {
-    let email = req.body.email;
-    let password = req.body.password;
+     let name = req.body.name;
+     let email = req.body.email;
+     let password = req.body.password;
+ 
+     //Validations
+     
+     let user = await users.findOne({email});
+ 
+     if(user) {
+         let response = error_function({
+             statusCode : 400,
+             message : "User already exists",
+         });
+         
+         res.status(response.statusCode).send(response);
+         return;
+     }
 
+     
+     let userpassword = await users.findOne({password});
+ 
+     if(userpassword) {
+         let response = error_function({
+             statusCode : 400,
+             message : "password already exists",
+         });
+         
+         res.status(response.statusCode).send(response);
+         return;
+     }
+ 
+     let new_user = await users.create({
+       name,
+       email,
+       password,
+     });
+ 
+     if (new_user) {
+         console.log("new_user : ", new_user);
+         
+         let response = success_function({
+             statusCode : 201,
+             data : new_user,
+             message : "User created successfully",
+         });
+         res.status(response.statusCode).send(response);
+         return;
+     }else {
+         let response = error_function({
+             statusCode : 400,
+             message : "User creation failed",
+         });
+         res.status(response.statusCode).send(response);
+         return;
+     }
    } catch (error) {
-    
+     console.log("error : ", error);
+     let response = error_function({
+       statusCode: 400,
+       message: "Something went wrong",
+     });
+     res.status(response.statusCode).send(response);
+     return;
    }
-})
+ }

@@ -57,17 +57,134 @@ exports.createUser = async function(req, res) {
   }
 }
 
-exports.getUsers  = async function(req, res) {
+
+  exports.getUsers = async function(req, res) {
+
+    try {
+      let allUsers = await users.find();
+  
+      if (allUsers.length > 0) {
+        let response = success_function({
+          statusCode: 200,
+          data: allUsers,
+          message: "Users retrieved successfully",
+        });
+
+        res.status(response.statusCode).send(response);
+        return;
+
+      } else {
+        let response = error_function({
+          statusCode: 404,
+          message: "No users found",
+        });
+        res.status(response.statusCode).send(response);
+        return;
+      }
+
+    } catch (error) {
+      console.log("error : ", error);
+      let response = error_function({
+        statusCode: 500,
+        message: "Something went wrong",
+      });
+      res.status(response.statusCode).send(response);
+      return;
+    }
+  };
+  
   
 
-}
+
 
 exports.updateUser = async function(req, res) {
 
+try{
+  let data = req.body;
+  console.log("data:",data);
+  
+
+  let finalData = {
+    name : data.name,
+    email : data.email,
+    password : data.password,
+  }
+
+  let id = data.id;
+  console.log("id : ",id);
+  console.log("typeOf(id) : ",typeof(id));
+
+  let updatedUser = await users.updateOne({id},{$set : finalData})
+
+
+  let response = success_function({
+      statusCode: 200,
+      data: updatedUser,
+      message: "User updated successfully",
+    })
+
+      error_function({
+      statusCode: 404,
+      message: "User not found",
+    });
+
+
+res.status(response.statusCode).send(response);
+
+} catch (error) {
+
+console.log("error : ", error);
+let response = error_function({
+  statusCode: 500,
+  message: "Something went wrong",
+});
+
+res.status(response.statusCode).send(response);
+}
+
+
+
+  
 }
 
 exports.deleteUser = async function(req, res) {
-    
+
+try{
+  let data = req.body;
+  console.log("data :",data)
+  
+  let finalData = {
+    name : data.name,
+    email : data.email,
+    password : data.password,
+  }
+
+  let id = data.id;
+  console.log("id : ",id);
+  console.log("typeOf(id) : ",typeof(id));
+
+  let deletedUser = await users.deleteOne({id},{$set : finalData})
+  let response = success_function({
+      statusCode: 200,
+      data: deletedUser,
+      message: "User deleted successfully",
+    })
+
+   error_function({
+      statusCode: 404,
+      message: "User not found",
+    });
+
+res.status(response.statusCode).send(response);
+
+} catch (error) {
+console.log("error : ", error);
+let response = error_function({
+  statusCode: 500,
+  message: "Something went wrong",
+});
+res.status(response.statusCode).send(response);
+}
 }
 
 
