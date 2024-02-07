@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
-const userRoutes = require('./router/userRouter');
+const authRoutes = require('./router/authRouter');
 dotenv.config();
+
 const connect = require('./db/config');
 
 
@@ -19,7 +20,7 @@ app.use(express.static(__dirname + "/client"));
 app.use(express.urlencoded({extended:false}));
 
 //UserRoutes
-app.use(userRoutes);
+app.use(authRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server running at http://localhost:${process.env.PORT}`);
