@@ -32,31 +32,43 @@ exports.login = async function(req, res) {
   }
 
 
-  const user = await user.findOne({ email });
+  const user = await users.findOne({ email });
 
     
     if (!user) {
         return res.status(404).json({ error: 'User not found' });
     }
 
-    
-    const isPasswordValid = await user.comparePassword(password);
+    //db_password && req.body.password
 
     
-    if (!isPasswordValid) {
+    if (user.password == password) {
         return res.status(401).json({ error: 'Invalid password' });
     }
 
-
-    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
     
-    res.json({ token });
+    const token = jwt.sign({ email: users.email }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    
+    const response = success_function({
+      statusCode: 200,
+      data:token,
+      message:"login success",
+
+    })
+    res.status(response.statusCode).send(response);
+    return;
+
 } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Server error' });
+    let response = error_function({
+      statusCode: 500,
+      message: "Something went wrong",
+    });
+    res.status(response.statusCode).send(response);
+    }
+  
 }
-}
+
 
 
 
