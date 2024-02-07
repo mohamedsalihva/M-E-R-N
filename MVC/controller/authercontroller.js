@@ -1,16 +1,18 @@
 const users = require("../db/models/users");
 const success_function = require("../utils/response-handler").success_function;
 const error_function = require("../utils/response-handler").error_function;
-const JWT = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 
 
-exports.loginuser = async function(req, res) {
+exports.login = async function(req, res) {
   
   try {
     let email = req.body.email
     let password = req.body.password
    
+
+
    function validateEmail(){
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(email);
@@ -20,6 +22,7 @@ exports.loginuser = async function(req, res) {
     return res.status(400).send("invalid email format")
    }
 
+   
    function validatePassword(){
       return password.length >= 8;
    }
@@ -28,10 +31,8 @@ exports.loginuser = async function(req, res) {
     return res.status(400).send("invalid password");
   }
 
-  
 
-    
-    const user = await user.findOne({ email });
+  const user = await user.findOne({ email });
 
     
     if (!user) {
@@ -55,7 +56,7 @@ exports.loginuser = async function(req, res) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });
 }
-};
+}
 
 
 
