@@ -2,6 +2,7 @@ const users = require("../db/models/users");
 const success_function = require("../utils/response-handler").success_function;
 const error_function = require("../utils/response-handler").error_function;
 const jwt = require('jsonwebtoken');
+const bcrypt=require('bcrypt')
 
 
 
@@ -41,20 +42,23 @@ exports.login = async function(req, res) {
 
     //db_password && req.body.password
 
-    
+    bcrypt.compare(password,user.password);
     if (user.password == password) {
         return res.status(401).json({ error: 'Invalid password' });
     }
 
     
     const token = jwt.sign({ email: users.email }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    
+    localStorage. setItem("token",token)
     const response = success_function({
       statusCode: 200,
       data:token,
       message:"login success",
 
     })
+    
+    
+   
     res.status(response.statusCode).send(response);
     return;
 

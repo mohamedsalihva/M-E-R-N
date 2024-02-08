@@ -1,6 +1,8 @@
 const users = require("../db/models/users");
 const success_function = require("../utils/response-handler").success_function;
 const error_function = require("../utils/response-handler").error_function;
+const bcrypt =require('bcrypt');
+
 
 exports.createUser = async function(req, res) {
   try {
@@ -22,10 +24,16 @@ exports.createUser = async function(req, res) {
         return;
     }
 
+    let salt = await bcrypt.genSalt(10);
+    console.log("salt:",salt);
+
+    let hashed_password =bcrypt.hashSync(password, salt);
+    console.log("hashed_password:",hashed_password)
+
     let new_user = await users.create({
       name,
       email,
-      password,
+      password: hashed_password,
     });
 
     if (new_user) {

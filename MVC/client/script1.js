@@ -2,9 +2,9 @@
 
 async function submitForm() {
 
-  const name =document.getElementById('name').value
 
-  console.log("name:",name);
+    // const name = document.getElementById('name').value
+    // console.log("name:",name)
 
   const email = document.getElementById('email').value
   console.log("email:",email);
@@ -15,7 +15,7 @@ async function submitForm() {
 
 
 let data ={
-    name,
+    // name,
     email,
     password,
 }
@@ -23,13 +23,13 @@ let json_data = JSON.stringify(data);
 
 
 
-if (!validateName(name) || !validateEmail(email) || !validatePassword(password)) {
-    alert("Please fix validation errors before submitting.");
-    return false;
-}
+// if (!validateEmail(email) || !validatePassword(password)) {
+//     alert("Please fix validation errors before submitting.");
+//     return false;
+// }
 
 
-    let response = await fetch('/submit', {
+    let response = await fetch('/login', {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -73,14 +73,12 @@ async function getData() {
         rows = rows +
             `
         <tr>
-        <td>${parsedData[i]._id}</td>
-        <td><input type="text" name="name" id="name-${parsedData[i]._id}"  value="${parsedData[i].name}" disabled=true ></input></td>
+        <td>${parsedData[i]._id}</td>      
         <td><input type="text" name="email" id="email-${parsedData[i]._id}" value="${parsedData[i].email}" disabled=true></td>
         <td><input type="text" name="password" id="password-${parsedData[i]._id}" value="${parsedData[i].password}" disabled=true></td>
         <td><button onclick="handleEdit('${parsedData[i]._id}')">Edit</button></td>
         <td><button onclick="handleSave('${parsedData[i]._id}')">Save</button></td>
         <td><button onclick="handleDelete('${parsedData[i]._id}')">Delete</button></td>
-        
         </tr>
         `
     }
@@ -92,9 +90,9 @@ async function getData() {
 function handleEdit(id) {
     console.log("id : ", id);
 
-    let name = document.getElementById(`name-${id}`)
-    console.log("name : ", name);
-    name.disabled = false;
+    // let name = document.getElementById(`name-${id}`)
+    // console.log("name : ", name);
+    // name.disabled = false;
 
     let email = document.getElementById(`email-${id}`)
     console.log("email : ", email);
@@ -112,10 +110,10 @@ function handleEdit(id) {
 async function handleSave(id) {
     console.log("id : ", id);
 
-    let nameTag = document.getElementById(`name-${id}`)
-    console.log("nameTag : ", nameTag);
-    let name = nameTag.value;
-    console.log("name : ",name)
+    // let nameTag = document.getElementById(`name-${id}`)
+    // console.log("nameTag : ", nameTag);
+    // let name = nameTag.value;
+    // console.log("name : ",name)
 
 
     let emailTag = document.getElementById(`email-${id}`)
@@ -131,7 +129,7 @@ async function handleSave(id) {
 
     let data = {
         id,
-        name,
+     
         email,
         password,
     }
@@ -162,10 +160,10 @@ async function handleSave(id) {
 async function handleDelete(id) {
     console.log("id : ", id);
 
-    let nameTag = document.getElementById(`name-${id}`)
-    console.log("nameTag : ", nameTag);
-    let name = nameTag.value;
-    console.log("name : ",name)
+    // let nameTag = document.getElementById(`name-${id}`)
+    // console.log("nameTag : ", nameTag);
+    // let name = nameTag.value;
+    // console.log("name : ",name)
 
 
     let emailTag = document.getElementById(`email-${id}`)
@@ -210,53 +208,53 @@ async function handleDelete(id) {
 }
 
 
-function validateName() {
+// function validateName() {
 
-    const name = document.getElementById('name').value;
-    const name_error = document.getElementById(`name-error`);
-    const name_regex = /^[A-Za-z]{2,30}( [A-Za-z]{2,30})?$/;
-    let isNameValid = name_regex.test(name);
+//     const name = document.getElementById('name').value;
+//     const name_error = document.getElementById(`name-error`);
+//     const name_regex = /^[A-Za-z]{2,30}( [A-Za-z]{2,30})?$/;
+//     let isNameValid = name_regex.test(name);
 
-    if (!isNameValid) {
-        name_error.innerHTML = "Invalid name";
-        return false;
-    } else {
-        name_error.innerHTML = "";
-        return true;
-    }
-}
-
-
-function validateEmail() {
-
-    const email = document.getElementById('email').value;
-    const email_error = document.getElementById('email-error');
-    const email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    let isEmailValid = email_regex.test(email);
-
-    if (!isEmailValid) {
-        email_error.innerHTML = "Invalid email";
-        return false;
-    } else {
-        email_error.innerHTML = "";
-        return true;
-    }
-}
+//     if (!isNameValid) {
+//         name_error.innerHTML = "Invalid name";
+//         return false;
+//     } else {
+//         name_error.innerHTML = "";
+//         return true;
+//     }
+// }
 
 
-function validatePassword() {
+// function validateEmail() {
 
-    const password = document.getElementById('password').value
-    const password_error = document.getElementById(`password-error`);
-    const password_regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/ ;
-    let isPasswordValid = password_regex.test(password);
+//     const email = document.getElementById('email').value;
+//     const email_error = document.getElementById('email-error');
+//     const email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+//     let isEmailValid = email_regex.test(email);
 
-    if (!isPasswordValid) {
-        password_error.innerHTML = "Invalid password";
-        return false;
-    } else {
-        password_error.innerHTML = "";
-        return true;
-    }
-}
+//     if (!isEmailValid) {
+//         email_error.innerHTML = "Invalid email";
+//         return false;
+//     } else {
+//         email_error.innerHTML = "";
+//         return true;
+//     }
+// }
+
+
+// function validatePassword() {
+
+//     const password = document.getElementById('password').value
+//     const password_error = document.getElementById(`password-error`);
+//     const password_regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/ ;
+//     let isPasswordValid = password_regex.test(password);
+
+//     if (!isPasswordValid) {
+//         password_error.innerHTML = "Invalid password";
+//         return false;
+//     } else {
+//         password_error.innerHTML = "";
+//         return true;
+//     }
+// }
 

@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended : false}));
 app.use(express.json());
 
 app.use(express.static(__dirname + "/client"));
-app.use(express.urlencoded({extended:false}));
+
 
 //authRoutes
 app.use(authRoutes);
