@@ -40,16 +40,15 @@ exports.login = async function(req, res) {
         return res.status(404).json({ error: 'User not found' });
     }
 
-    //db_password && req.body.password
 
-    bcrypt.compare(password,user.password);
-    if (user.password == password) {
+    const comparepassword = bcrypt.compare(password,user.password);
+    if (!comparepassword) {
         return res.status(401).json({ error: 'Invalid password' });
     }
 
     
     const token = jwt.sign({ email: users.email }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    localStorage. setItem("token",token)
+
     const response = success_function({
       statusCode: 200,
       data:token,
