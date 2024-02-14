@@ -47,14 +47,15 @@ exports.login = async function(req, res) {
     }
 
     
-    const token = jwt.sign({ email: users.email }, process.env.JWT_SECRET, { expiresIn: '9d' });
+    const token = jwt.sign({ email: users.email }, process.env.JWT_SECRET, { expiresIn: '30d' });
 
     const response = success_function({
       statusCode: 200,
       data:token,
       message:"login success",
-
+      
     })
+   
     
     
    

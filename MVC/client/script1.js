@@ -1,8 +1,14 @@
-
+function success_function(responseData) {
+    return {
+      statusCode: responseData.statusCode ||200,
+      data: responseData.data || null,
+      message: responseData.message|| "success"
+    };
+  }
 
 async function submitForm() {
 
-
+try{
     // const name = document.getElementById('name').value
     // console.log("name:",name)
 
@@ -21,15 +27,11 @@ let data ={
 }
 let json_data = JSON.stringify(data);
 
-
-
 // if (!validateEmail(email) || !validatePassword(password)) {
 //     alert("Please fix validation errors before submitting.");
 //     return false;
 // }
 
-
-    try {
         let response = await fetch('/login', {
           method: "POST",
           headers: {
@@ -42,21 +44,37 @@ let json_data = JSON.stringify(data);
           throw new Error('Form submission failed');
         }
     
-        let token = await response.text();
-        console.log("token:", token);
-    
-    
+        let responseData = await response.json();
+               let token = responseData.data;
+               console.log("token:", token);
+
+        const responsee = success_function({
+            statusCode: 200,
+            data:token,
+            message:"login success",
+            
+        })
         localStorage.setItem("token",token);
     
 
         alert('Form submitted successfully');
+        
+    res.status(responsee.statusCode).send(responsee);
+    return;
+
+        
       } catch (error) {
-        console.error("Error:", error.message);
+        console.error("Error:", error);
+        const responsee = error_function({
+          statusCode : 501,
+          message:"something went wrong"
+        })
+        res.status(responsee.statusCode).send(responsee);
         alert('Form submission failed');
       }
+     
     }
-   
-
+  
 
 
 // async function getData() {
