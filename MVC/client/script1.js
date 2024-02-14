@@ -77,40 +77,40 @@ let json_data = JSON.stringify(data);
   
 
 
-// async function getData() {
+async function getData() {
 
-//     console.log("Hello world");
-
-
-//     let data = await fetch('http://localhost:3001/getData');
-//    console.log("data:",data)
+    console.log("Hello world");
 
 
-//     let parsedData = await data.json();
-//     console.log("parsedData : ", parsedData);
+    let data = await fetch('http://localhost:3001/getData');
+   console.log("data:",data)
 
-//     let content = document.getElementById("content");
-//     console.log("content : ", content);
 
-//     let rows = "";
+    let parsedData = await data.json();
+    console.log("parsedData : ", parsedData);
 
-//     for (let i = 0; i < parsedData.length; i++) {
-//         rows = rows +
-//             `
-//         <tr>
-//         <td>${parsedData[i]._id}</td>      
-//         <td><input type="text" name="email" id="email-${parsedData[i]._id}" value="${parsedData[i].email}" disabled=true></td>
-//         <td><input type="text" name="password" id="password-${parsedData[i]._id}" value="${parsedData[i].password}" disabled=true></td>
-//         <td><button onclick="handleEdit('${parsedData[i]._id}')">Edit</button></td>
-//         <td><button onclick="handleSave('${parsedData[i]._id}')">Save</button></td>
-//         <td><button onclick="handleDelete('${parsedData[i]._id}')">Delete</button></td>
-//         </tr>
-//         `
-//     }
-//     content.innerHTML = rows;
-// }
+    let content = document.getElementById("content");
+    console.log("content : ", content);
 
-//  getData();
+    let rows = "";
+
+    for (let i = 0; i < parsedData.length; i++) {
+        rows = rows +
+            `
+        <tr>
+        <td>${parsedData[i]._id}</td>      
+        <td><input type="text" name="email" id="email-${parsedData[i]._id}" value="${parsedData[i].email}" disabled=true></td>
+        <td><input type="text" name="password" id="password-${parsedData[i]._id}" value="${parsedData[i].password}" disabled=true></td>
+        <td><button onclick="handleEdit('${parsedData[i]._id}')">Edit</button></td>
+        <td><button onclick="handleSave('${parsedData[i]._id}')">Save</button></td>
+        <td><button onclick="handleDelete('${parsedData[i]._id}')">Delete</button></td>
+        </tr>
+        `
+    }
+    content.innerHTML = rows;
+}
+
+ getData();
 
 // function handleEdit(id) {
 //     console.log("id : ", id);
