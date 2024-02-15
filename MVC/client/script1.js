@@ -4,7 +4,20 @@ function success_function(responseData) {
       data: responseData.data || null,
       message: responseData.message|| "success"
     };
+    
+
   }
+  function error_function(responseData) {
+    return {
+      statusCode: responseData.statusCode ||400,
+      data: responseData.data || null,
+      message: responseData.message|| "FAILED"
+    };
+    
+
+  }
+
+
 
 async function submitForm() {
 
@@ -32,7 +45,7 @@ let json_data = JSON.stringify(data);
 //     return false;
 // }
 
-        let response = await fetch('/login', {
+        let response = await fetch('/submit', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -48,7 +61,7 @@ let json_data = JSON.stringify(data);
                let token = responseData.data;
                console.log("token:", token);
 
-        const responsee = success_function({
+        const successfunction = success_function({
             statusCode: 200,
             data:token,
             message:"login success",
@@ -59,17 +72,17 @@ let json_data = JSON.stringify(data);
 
         alert('Form submitted successfully');
         
-    res.status(responsee.statusCode).send(responsee);
+    res.status( successfunction.statusCode).send( successfunction);
     return;
 
         
       } catch (error) {
-        console.error("Error:", error);
-        const responsee = error_function({
+        console.log("Error:", error);
+        error_function({
           statusCode : 501,
           message:"something went wrong"
         })
-        res.status(responsee.statusCode).send(responsee);
+        res.status(errorfunction.statusCode).send(errorfunction);
         alert('Form submission failed');
       }
      
@@ -89,48 +102,45 @@ async function getData() {
     let parsedData = await data.json();
     console.log("parsedData : ", parsedData);
 
-    let content = document.getElementById("content");
-    console.log("content : ", content);
+    let body = document.getElementById("body");
+    console.log("body : ", body);
 
     let rows = "";
 
-    for (let i = 0; i < parsedData.length; i++) {
+    for (let i = 0; i < parsedData.data.length; i++) {
         rows = rows +
             `
         <tr>
-        <td>${parsedData[i]._id}</td>      
-        <td><input type="text" name="email" id="email-${parsedData[i]._id}" value="${parsedData[i].email}" disabled=true></td>
-        <td><input type="text" name="password" id="password-${parsedData[i]._id}" value="${parsedData[i].password}" disabled=true></td>
-        <td><button onclick="handleEdit('${parsedData[i]._id}')">Edit</button></td>
-        <td><button onclick="handleSave('${parsedData[i]._id}')">Save</button></td>
-        <td><button onclick="handleDelete('${parsedData[i]._id}')">Delete</button></td>
+        <td>${parsedData.data[i]._id}</td>      
+        <td><input type="text" name="email" id="email-${parsedData.data[i]._id}" value="${parsedData.data[i].email}" disabled=true></td>
+        <td><input type="text" name="password" id="password-${parsedData.data[i]._id}" value="${parsedData.data[i].password}" disabled=true></td>
+        <td><button onclick="handleEdit('${parsedData.data[i]._id}')">Edit</button></td>
+        <td><button onclick="handleSave('${parsedData.data[i]._id}')">Save</button></td>
+        <td><button onclick="handleDelete('${parsedData.data[i]._id}')">Delete</button></td>
         </tr>
         `
     }
-    content.innerHTML = rows;
+    body.innerHTML =rows;
 }
 
- getData();
 
-// function handleEdit(id) {
-//     console.log("id : ", id);
+function handleEdit(id) {
+    console.log("id : ", id);
 
-//     // let name = document.getElementById(`name-${id}`)
-//     // console.log("name : ", name);
-//     // name.disabled = false;
+    // let name = document.getElementById(`name-${id}`)
+    // console.log("name : ", name);
+    // name.disabled = false;
 
-//     let email = document.getElementById(`email-${id}`)
-//     console.log("email : ", email);
-//     email.disabled = false;
+    let email = document.getElementById(`email-${id}`)
+    console.log("email : ", email);
+    email.disabled = false;
 
-//     let password = document.getElementById(`password-${id}`)
-//     console.log("password : ", password);
-//     password.disabled = false;
+    let password = document.getElementById(`password-${id}`)
+    console.log("password : ", password);
+    password.disabled = false;
 
+}
 
-
-
-// }
 
 async function handleSave(id) {
     
@@ -155,7 +165,6 @@ async function handleSave(id) {
 
     let data = {
         id,
-     
         email,
         password,
     }
@@ -163,7 +172,7 @@ async function handleSave(id) {
     let jsonData = JSON.stringify(data);
     console.log("jsonData : ", jsonData);
 
-    let response = await fetch('http://localhost:3001/editData', {
+    let response = await fetch('http://localhost:3001/updateData', {
         method: "PUT",
         headers: {
             "Content-type": "application/json"
@@ -175,12 +184,12 @@ async function handleSave(id) {
     console.log("response : ",response);
     let parsed_response = await response.text();
 
-    if (parsed_response == "success"){
+    if (parsed_response){
         alert("Updation success")
     }else{
         alert("Updation failed")
     }
-     getData();
+       //getData();
 }
 
 async function handleDelete(id) {
@@ -205,7 +214,6 @@ async function handleDelete(id) {
 
     let data = {
         id,
-        name,
         email,
         password,
     }
