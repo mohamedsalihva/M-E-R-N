@@ -8,7 +8,7 @@ dotenv.config();
 const connect = require('./db/config');
 
 
-//Database connection
+//Database connectionnn
 connect();
 
 //Parsing form datas in all routes
