@@ -9,7 +9,7 @@ function success_function(responseData) {
   }
   function error_function(responseData) {
     return {
-      statusCode: responseData.statusCode ||400,
+      statusCode: responseData.statusCode ||404,
       data: responseData.data || null,
       message: responseData.message|| "FAILED"
     };
@@ -22,8 +22,8 @@ function success_function(responseData) {
 async function submitForm() {
 
 try{
-    // const name = document.getElementById('name').value
-    // console.log("name:",name)
+    const name = document.getElementById('name').value
+    console.log("name:",name)
 
   const email = document.getElementById('email').value
   console.log("email:",email);
@@ -34,7 +34,7 @@ try{
 
 
 let data ={
-    // name,
+    name,
     email,
     password,
 }
@@ -45,7 +45,7 @@ let json_data = JSON.stringify(data);
 //     return false;
 // }
 
-        let response = await fetch('/submit', {
+        let response = await fetch('/users', {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -78,8 +78,8 @@ let json_data = JSON.stringify(data);
         
       } catch (error) {
         console.log("Error:", error);
-        error_function({
-          statusCode : 501,
+       const errorfunction = error_function({
+          statusCode : 404,
           message:"something went wrong"
         })
         res.status(errorfunction.statusCode).send(errorfunction);
@@ -95,7 +95,7 @@ async function getData() {
     console.log("Hello world");
 
 
-    let data = await fetch('http://localhost:3001/getData');
+    let data = await fetch('http://localhost:3001/users');
    console.log("data:",data)
 
 
@@ -111,7 +111,8 @@ async function getData() {
         rows = rows +
             `
         <tr>
-        <td>${parsedData.data[i]._id}</td>      
+        <td>${parsedData.data[i]._id}</td>   
+        <td><input type="text" name="name" id="name-${parsedData.data[i]._id}" value="${parsedData.data[i].name}" disabled=true></td>
         <td><input type="text" name="email" id="email-${parsedData.data[i]._id}" value="${parsedData.data[i].email}" disabled=true></td>
         <td><input type="text" name="password" id="password-${parsedData.data[i]._id}" value="${parsedData.data[i].password}" disabled=true></td>
         <td><button onclick="handleEdit('${parsedData.data[i]._id}')">Edit</button></td>
@@ -123,172 +124,174 @@ async function getData() {
     body.innerHTML =rows;
 }
 
-
 function handleEdit(id) {
-    console.log("id : ", id);
+  console.log("id : ", id);
 
-    // let name = document.getElementById(`name-${id}`)
-    // console.log("name : ", name);
-    // name.disabled = false;
+  let name = document.getElementById(`name-${id}`)
+  console.log("name : ", name);
+  name.disabled = false;
 
-    let email = document.getElementById(`email-${id}`)
-    console.log("email : ", email);
-    email.disabled = false;
+  let email = document.getElementById(`email-${id}`)
+  console.log("email : ", email);
+  email.disabled = false;
 
-    let password = document.getElementById(`password-${id}`)
-    console.log("password : ", password);
-    password.disabled = false;
+  let password = document.getElementById(`password-${id}`)
+  console.log("password : ", password);
+  password.disabled = false;
+
+
+
 
 }
 
-
 async function handleSave(id) {
-    
-    console.log("id : ", id);
+  console.log("id : ", id);
 
-    // let nameTag = document.getElementById(`name-${id}`)
-    // console.log("nameTag : ", nameTag);
-    // let name = nameTag.value;
-    // console.log("name : ",name)
-
-
-    let emailTag = document.getElementById(`email-${id}`)
-    console.log("emailTag : ", emailTag);
-    let email = emailTag.value;
-    console.log("email : ",email)
+  let nameTag = document.getElementById(`name-${id}`)
+  console.log("nameTag : ", nameTag);
+  let name = nameTag.value;
+  console.log("name : ",name)
 
 
-    let passTag = document.getElementById(`password-${id}`)
-    console.log("passTag : ", passTag);
-    let password = passTag.value;
-    console.log("pass : ",password);
+  let emailTag = document.getElementById(`email-${id}`)
+  console.log("emailTag : ", emailTag);
+  let email = emailTag.value;
+  console.log("email : ",email)
 
-    let data = {
-        id,
-        email,
-        password,
-    }
 
-    let jsonData = JSON.stringify(data);
-    console.log("jsonData : ", jsonData);
+  let passTag = document.getElementById(`password-${id}`)
+  console.log("passTag : ", passTag);
+  let password = passTag.value;
+  console.log("pass : ",password);
 
-    let response = await fetch('http://localhost:3001/updateData', {
-        method: "PUT",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: jsonData,
+  let data = {
+      id,
+      name,
+      email,
+      password,
+  }
 
-    });
+  let jsonData = JSON.stringify(data);
+  console.log("jsonData : ", jsonData);
 
-    console.log("response : ",response);
-    let parsed_response = await response.text();
+  let response = await fetch('http://localhost:3001/users', {
+      method: "PUT",
+      headers: {
+          "Content-type": "application/json"
+      },
+      body: jsonData,
 
-    if (parsed_response){
-        alert("Updation success")
-    }else{
-        alert("Updation failed")
-    }
-       //getData();
+  });
+
+  console.log("response : ",response);
+  let parsed_response = await response.text();
+
+  if (parsed_response == "success"){
+      alert("Updation success")
+  }else{
+      alert("Updation failed")
+  }
+   getData();
 }
 
 async function handleDelete(id) {
-    console.log("id : ", id);
+  console.log("id : ", id);
 
-    // let nameTag = document.getElementById(`name-${id}`)
-    // console.log("nameTag : ", nameTag);
-    // let name = nameTag.value;
-    // console.log("name : ",name)
-
-
-    let emailTag = document.getElementById(`email-${id}`)
-    console.log("emailTag : ", emailTag);
-    let email = emailTag.value;
-    console.log("email : ",email)
+  let nameTag = document.getElementById(`name-${id}`)
+  console.log("nameTag : ", nameTag);
+  let name = nameTag.value;
+  console.log("name : ",name)
 
 
-    let passTag = document.getElementById(`password-${id}`)
-    console.log("passTag : ", passTag);
-    let password = passTag.value;
-    console.log("pass : ",password);
+  let emailTag = document.getElementById(`email-${id}`)
+  console.log("emailTag : ", emailTag);
+  let email = emailTag.value;
+  console.log("email : ",email)
 
-    let data = {
-        id,
-        email,
-        password,
-    }
 
-    let jsonData = JSON.stringify(data);
-    console.log("jsonData : ", jsonData);
+  let passTag = document.getElementById(`password-${id}`)
+  console.log("passTag : ", passTag);
+  let password = passTag.value;
+  console.log("pass : ",password);
 
-    let response=await fetch('http://localhost:3001/deleteData', {
-        method: "DELETE",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: jsonData,
+  let data = {
+      id,
+      name,
+      email,
+      password,
+  }
 
-    });
+  let jsonData = JSON.stringify(data);
+  console.log("jsonData : ", jsonData);
 
-    console.log("response : ",response);
-    let parsed_response = await response.text();
+  let response=await fetch('http://localhost:3001/users', {
+      method: "DELETE",
+      headers: {
+          "Content-type": "application/json"
+      },
+      body: jsonData,
 
-    if (parsed_response == "deleted"){
-        alert("Deletion Success")
-    }else{
-        alert("Deletion failed")
-    }
-    getData();
+  });
+
+  console.log("response : ",response);
+  let parsed_response = await response.text();
+
+  if (parsed_response == "deleted"){
+      alert("Deletion Success")
+  }else{
+      alert("Deletion failed")
+  }
+  getData();
 }
 
+// // function validateName() {
 
-// function validateName() {
+// //     const name = document.getElementById('name').value;
+// //     const name_error = document.getElementById(`name-error`);
+// //     const name_regex = /^[A-Za-z]{2,30}( [A-Za-z]{2,30})?$/;
+// //     let isNameValid = name_regex.test(name);
 
-//     const name = document.getElementById('name').value;
-//     const name_error = document.getElementById(`name-error`);
-//     const name_regex = /^[A-Za-z]{2,30}( [A-Za-z]{2,30})?$/;
-//     let isNameValid = name_regex.test(name);
-
-//     if (!isNameValid) {
-//         name_error.innerHTML = "Invalid name";
-//         return false;
-//     } else {
-//         name_error.innerHTML = "";
-//         return true;
-//     }
-// }
-
-
-// function validateEmail() {
-
-//     const email = document.getElementById('email').value;
-//     const email_error = document.getElementById('email-error');
-//     const email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-//     let isEmailValid = email_regex.test(email);
-
-//     if (!isEmailValid) {
-//         email_error.innerHTML = "Invalid email";
-//         return false;
-//     } else {
-//         email_error.innerHTML = "";
-//         return true;
-//     }
-// }
+// //     if (!isNameValid) {
+// //         name_error.innerHTML = "Invalid name";
+// //         return false;
+// //     } else {
+// //         name_error.innerHTML = "";
+// //         return true;
+// //     }
+// // }
 
 
-// function validatePassword() {
+// // function validateEmail() {
 
-//     const password = document.getElementById('password').value
-//     const password_error = document.getElementById(`password-error`);
-//     const password_regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/ ;
-//     let isPasswordValid = password_regex.test(password);
+// //     const email = document.getElementById('email').value;
+// //     const email_error = document.getElementById('email-error');
+// //     const email_regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+// //     let isEmailValid = email_regex.test(email);
 
-//     if (!isPasswordValid) {
-//         password_error.innerHTML = "Invalid password";
-//         return false;
-//     } else {
-//         password_error.innerHTML = "";
-//         return true;
-//     }
-// }
+// //     if (!isEmailValid) {
+// //         email_error.innerHTML = "Invalid email";
+// //         return false;
+// //     } else {
+// //         email_error.innerHTML = "";
+// //         return true;
+// //     }
+// // }
 
+
+// // function validatePassword() {
+
+// //     const password = document.getElementById('password').value
+// //     const password_error = document.getElementById(`password-error`);
+// //     const password_regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/ ;
+// //     let isPasswordValid = password_regex.test(password);
+
+// //     if (!isPasswordValid) {
+// //         password_error.innerHTML = "Invalid password";
+// //         return false;
+// //     } else {
+// //         password_error.innerHTML = "";
+// //         return true;
+// //     }
+// // }
+
+// Success and error functions for handling responses

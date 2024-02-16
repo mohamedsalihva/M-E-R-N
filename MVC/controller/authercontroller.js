@@ -6,7 +6,7 @@ const bcrypt=require('bcrypt')
 
 
 
-exports.login = async function(req, res) {
+exports.loginUser = async function(req, res) {
   
   try {
     let email = req.body.email

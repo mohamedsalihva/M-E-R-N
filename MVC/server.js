@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
+const cors = require('cors')
 const authRoutes = require('./router/authRouter');
 const userRoutes = require ('./router/userRouter')
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(express.json());
 
 app.use(express.static(__dirname + "/client"));
 
+app.use(cors());
 
 //authRoutes
 app.use(authRoutes);

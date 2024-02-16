@@ -4,6 +4,6 @@ const authercontroller = require('../controller/authercontroller');
 
 
 
-router.post('/login', authercontroller.login);
+router.post('/login', authercontroller.loginUser);
 
 module.exports = router;

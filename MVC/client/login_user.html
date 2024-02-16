@@ -9,6 +9,11 @@
 <body>
     <form action="/submit" method="post"> 
      
+        <div id="name-section" class="section">
+            <input id="name" name="name" type="text" placeholder="First Name" >
+            <div id="name-error" class="error"></div>
+        
+        </div> 
     
     <div id="email-section" class="section">
     
@@ -26,9 +31,9 @@
     </div> 
     
     
-       <button id="button" type="button" onclick="submitForm()">login</button>
+       <button id="button" type="button" onclick="loginForm()">login</button>
     
     </form>
-    <script src="script.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>

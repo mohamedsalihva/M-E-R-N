@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 const users = mongoose.Schema({
 
-    // name : {
-    //     type : String,
-    //     required : true,
-    // },
+    name : {
+        type : String,
+        required : true,
+    },
     email : {
         type : String,
         required : true,
@@ -17,4 +17,4 @@ const users = mongoose.Schema({
     }
 });
 
-module.exports =  mongoose.model("user_coll",users);
+module.exports =  mongoose.model("user_colls",users);

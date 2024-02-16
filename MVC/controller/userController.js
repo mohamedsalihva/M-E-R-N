@@ -113,7 +113,7 @@ try{
   
 
   let finalData = {
-    // name : data.name,
+    name : data.name,
     email : data.email,
     password : data.password,
   }
