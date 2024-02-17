@@ -17,76 +17,63 @@ function success_function(responseData) {
 
   }
 
+  async function submitForm() {
+    try {
+        const name = document.getElementById('name').value;
+        console.log("name:", name);
 
+        const email = document.getElementById('email').value;
+        console.log("email:", email);
 
-async function submitForm() {
+        const password = document.getElementById('password').value;
+        console.log("password:", password);
 
-try{
-    const name = document.getElementById('name').value
-    console.log("name:",name)
-
-  const email = document.getElementById('email').value
-  console.log("email:",email);
-
-
-  const password = document.getElementById('password').value
-  console.log("password:",password);
-
-
-let data ={
-    name,
-    email,
-    password,
-}
-let json_data = JSON.stringify(data);
-
-// if (!validateEmail(email) || !validatePassword(password)) {
-//     alert("Please fix validation errors before submitting.");
-//     return false;
-// }
+        let data = {
+            name,
+            email,
+            password,
+        };
+        let json_data = JSON.stringify(data);
 
         let response = await fetch('/users', {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: json_data,
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: json_data,
         });
-    
+
         if (!response.ok) {
-          throw new Error('Form submission failed');
+            throw new Error('Form submission failed');
         }
-    
+
         let responseData = await response.json();
-               let token = responseData.data;
-               console.log("token:", token);
+        let token = responseData.data;
+        console.log("token:", token);
+
+        localStorage.setItem("token", token);
+        
+        alert('Form submitted successfully');
 
         const successfunction = success_function({
             statusCode: 200,
-            data:token,
-            message:"login success",
-            
-        })
-        localStorage.setItem("token",token);
-    
+            data: token,
+            message: "login success",
+        });
+        return successfunction;
 
-        alert('Form submitted successfully');
-        
-    res.status( successfunction.statusCode).send( successfunction);
-    return;
-
-        
-      } catch (error) {
+    } catch (error) {
         console.log("Error:", error);
-       const errorfunction = error_function({
-          statusCode : 404,
-          message:"something went wrong"
-        })
-        res.status(errorfunction.statusCode).send(errorfunction);
         alert('Form submission failed');
-      }
-     
+        
+        const errorfunction = error_function({
+            statusCode: 404,
+            message: "something went wrong"
+        });
+        return errorfunction;
     }
+}
+
   
 
 
@@ -140,9 +127,8 @@ function handleEdit(id) {
   password.disabled = false;
 
 
-
-
 }
+
 
 async function handleSave(id) {
   console.log("id : ", id);
@@ -193,6 +179,7 @@ async function handleSave(id) {
   }
    getData();
 }
+
 
 async function handleDelete(id) {
   console.log("id : ", id);
