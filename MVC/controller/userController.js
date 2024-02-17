@@ -1,3 +1,4 @@
+const {ObjectId } = require("mongodb");
 const users = require("../db/models/users");
 const success_function = require("../utils/response-handler").success_function;
 const error_function = require("../utils/response-handler").error_function;
@@ -118,11 +119,17 @@ try{
     password : data.password,
   }
 
+ 
+  
   let id = data.id;
   console.log("id : ",id);
   console.log("typeOf(id) : ",typeof(id));
+  
+  let _id = new ObjectId (id);
+  console.log("_id : ",_id);
+  console.log("typeOf(_id) : ",typeof(_id));
 
-  let updatedUser = await users.updateOne({id},{$set : finalData})
+  let updatedUser = await users.updateOne({_id},{$set : finalData});
 
 
   let response = success_function({
@@ -170,8 +177,15 @@ try{
   let id = data.id;
   console.log("id : ",id);
   console.log("typeOf(id) : ",typeof(id));
+   
 
-  let deletedUser = await users.deleteOne({id},{$set : finalData})
+
+  let deletedUser = await users.deleteOne({id},{$set : finalData});
+  if(deletedUser.acknowledged && deletedCount){
+    alert("success")
+    console.log("deleteduser:",deletedUser)
+  }
+
   let response = success_function({
       statusCode: 200,
       data: deletedUser,

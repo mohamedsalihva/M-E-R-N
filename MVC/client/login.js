@@ -11,15 +11,13 @@ function error_function(responseData) {
   return {
     statusCode: responseData.statusCode ||404,
     data: responseData.data || null,
-    message: responseData.message|| "FAILED"
+    message: responseData.message|| "failed"
   };
   
 
 }
 async function login() {
   try {
-      const name = document.getElementById('name').value;
-      console.log("name:", name);
 
       const email = document.getElementById('email').value;
       console.log("email:", email);
@@ -28,7 +26,6 @@ async function login() {
       console.log("password:", password);
 
       let data = {
-          name,
           email,
           password,
       };

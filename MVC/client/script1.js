@@ -172,7 +172,7 @@ async function handleSave(id) {
   console.log("response : ",response);
   let parsed_response = await response.text();
 
-  if (parsed_response == "success"){
+  if (parsed_response){
       alert("Updation success")
   }else{
       alert("Updation failed")
@@ -202,7 +202,6 @@ async function handleDelete(id) {
   console.log("pass : ",password);
 
   let data = {
-      id,
       name,
       email,
       password,
