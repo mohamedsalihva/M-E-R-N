@@ -17,6 +17,8 @@ function success_function(responseData) {
 
   }
 
+
+
   async function submitForm() {
     try {
         const name = document.getElementById('name').value;
@@ -28,12 +30,17 @@ function success_function(responseData) {
         const password = document.getElementById('password').value;
         console.log("password:", password);
 
+        const image = documnet.getElementById('image').value;
+        console.log("image:",image);
+
         let data = {
             name,
             email,
             password,
+            image,
         };
         let json_data = JSON.stringify(data);
+
 
         let response = await fetch('/users', {
             method: "POST",

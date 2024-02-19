@@ -14,10 +14,13 @@ async function submitForm() {
   console.log("password:",password);
 
 
+
+
 let data ={
     name,
     email,
     password,
+
 }
 let json_data = JSON.stringify(data);
 

@@ -14,6 +14,11 @@ const users = mongoose.Schema({
     password : {
         type : String,
         required : true,
+    },
+    image :{
+        
+        type:String,
+        required :true,
     }
 });
 

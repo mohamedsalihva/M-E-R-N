@@ -10,6 +10,19 @@ exports.createUser = async function(req, res) {
     let name = req.body.name;
     let email = req.body.email;
     let password = req.body.password;
+    let image = req.body.image;
+
+    //Backend
+    //Convert this base64 encoded image string back to image file
+    //Create a folder uploads from server, validations
+    //Decode this base64 string and save it in the uploads folder
+    //Save the path of the image in the uploads folder to database, ex : uploads/photo.jpg
+    //Make the uploads folder public using express static middleware
+
+    //Front end
+    //Take image input
+    //Convert image to base64 string using javascript
+    //Use fetch api to send this string to the backend
 
     //Validations
     
@@ -35,6 +48,7 @@ exports.createUser = async function(req, res) {
       name,
       email,
       password: hashed_password,
+      image,
     });
 
     if (new_user) {
