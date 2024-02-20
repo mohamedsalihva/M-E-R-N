@@ -5,12 +5,13 @@ const error_function = require("../utils/response-handler").error_function;
 const bcrypt =require('bcrypt');
 
 
+
 exports.createUser = async function(req, res) {
   try {
     let name = req.body.name;
     let email = req.body.email;
     let password = req.body.password;
-    let image = req.body.image;
+    // let image = req.body.image;
 
     //Backend
     //Convert this base64 encoded image string back to image file
@@ -48,7 +49,7 @@ exports.createUser = async function(req, res) {
       name,
       email,
       password: hashed_password,
-      image,
+    
     });
 
     if (new_user) {

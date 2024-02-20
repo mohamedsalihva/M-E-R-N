@@ -5,39 +5,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt=require('bcrypt')
 
 
-
-// exports.login = async function(req, res) {
-//   try {
-//       // Retrieve email and password from request body
-//       const { email, password } = req.body;
-
-//       // Validate email and password using regex (you can add your own validation logic here)
-
-//       // Simulate finding a user in the database using email
-//       const user = { email: 'example@example.com', password: 'password123' };
-
-//       // If user not found, give proper error response
-//       if (!user) {
-//           return res.status(404).json({ message: 'User not found' });
-//       }
-
-//       // If password does not match, give error response
-//       if (password !== user.password) {
-//           return res.status(401).json({ message: 'Invalid password' });
-//       }
-
-//       // If password matches, generate a JWT token
-//       const token = jwt.sign({ email: user.email },process.env.JWT_SECRET, { expiresIn: '30d' });
-
-//       // Send the token in response
-//       res.status(200).json({ token });
-//   } catch (error) {
-//       console.error('Error:', error);
-//       res.status(500).json({ message: 'Internal server error' });
-//   }
-// };
-
-
 exports.login = async function(req, res) {
   
   try {
@@ -79,7 +46,7 @@ exports.login = async function(req, res) {
     }
 
     
-    const access_token = jwt.sign({}, process.env.JWT_SECRET, { expiresIn: '30d' });
+    const access_token = jwt.sign({}, process.env.JWT_SECRET,);
 
     const response = success_function({
       statusCode: 200,

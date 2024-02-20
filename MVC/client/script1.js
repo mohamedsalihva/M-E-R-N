@@ -30,14 +30,13 @@ function success_function(responseData) {
         const password = document.getElementById('password').value;
         console.log("password:", password);
 
-        const image = documnet.getElementById('image').value;
-        console.log("image:",image);
+
 
         let data = {
             name,
             email,
             password,
-            image,
+            
         };
         let json_data = JSON.stringify(data);
 
