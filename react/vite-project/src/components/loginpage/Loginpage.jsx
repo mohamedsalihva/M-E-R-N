@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Loginpage extends Component {
+ class Loginpage extends Component {
     handleLogin = () => {
      const username = document.getElementById('username').value;
      const password = document.getElementById('password').value;
@@ -22,3 +22,4 @@ export default class Loginpage extends Component {
     );
   }
 }
+export default Loginpage
