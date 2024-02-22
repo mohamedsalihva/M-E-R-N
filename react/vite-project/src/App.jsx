@@ -1,25 +1,20 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
+import Navbar from './components/navbar/Navbar';
+import Loginpage from './components/loginpage/Loginpage';
 
-import Greeting1 from "./components/greetings/Greeting1"
-import Greeting from "./components/greetings/Greeting"
-import Loginpage from "./components/loginpage/Loginpage"
-import Counter from "./components/counters/Counter"
-import Counter1 from "./components/counters/Counter1"
-
-function App() {
+const App = () => {
   return (
-    <>
-   {/* <Greeting1 name ={'sali'}/> */}
+    <Router>
+      <div>
+        <Navbar />
+        <Routes> 
+          <Route path="/Loginpage" element={<Loginpage />} />
 
-   {/* <Greeting name ={"jake"}/> */}
-    
-    {/* <Loginpage/> */}
+        </Routes>
+      </div>
+    </Router>
+  );
+};
 
-   <Counter initialvalue={0}/>
-
-   <Counter1 initialvalue={3}/>
-   
-    </>
-  )
-}
-
-export default App
+export default App;
