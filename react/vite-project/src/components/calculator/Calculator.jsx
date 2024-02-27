@@ -9,6 +9,8 @@ function Calculator() {
     if (value === '=') {
       try {
         setResult(eval(input));
+        setInput(result);
+        
       } catch (error) {
         setResult('Error');
       }
@@ -17,6 +19,7 @@ function Calculator() {
       setResult('');
     } else {
       setInput(input + value);
+      
     }
   };
 
