@@ -1,25 +1,30 @@
-import React, { Component } from 'react'
+import React from 'react';
+ import Navbar from './Navbar';
 
- class Loginpage extends Component {
-    handleLogin = () => {
-     const username = document.getElementById('emailAddress').value;
-     const password = document.getElementById('password').value;
-     console.log("emailAddress:",emailAddress);
-     console.log("password:",password);
-     alert(`emailAddress: ${emailAddress}, password: ${password}`)
-
-    }
-  render() {
-    return (
-      <div>
-        <h1>Login</h1>
-        <input type="text" id='emailAddress' placeholder='emailAddress' />
-        <br />
-        <input type="text" id='password' placeholder='password' />
-        <br />
-        <button onClick={this.handleLogin}>Login</button>
+const LoginPage = () => {
+  return (
+    <div>
+      <Navbar />
+      <div className="container mt-5">
+        <h1 className="text-center">Login Page</h1>
+        <div className="row">
+          <div className="col-md-6 offset-md-3">
+            <form>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input type="text" id="username" className="form-control" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input type="password" id="password" className="form-control" />
+              </div>
+              <button type="submit" className="btn btn-primary btn-block">Login</button>
+            </form>
+          </div>
+        </div>
       </div>
-    );
-  }
-}
-export default Loginpage
+    </div>
+  );
+};
+
+export default LoginPage;

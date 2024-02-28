@@ -1,19 +1,22 @@
-// import React from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
-// import Navbar from './components/navbar/Navbar';
-// import Loginpage from './components/loginpage/Loginpage';
-// import Purecomponent1 from "./components/purecomponents/Purecomponent1";
-// import Purecomponent2 from "./components/purecomponents/Purecomponent2";
 
-// import Calculator from "./components/calculator/Calculator";
-
-// import ControlledComponents from "./components/controlledanduncontrolled/ControlledComponents";
-import UncontrolledComponents from "./components/controlledanduncontrolled/UncontrolledComponents";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingPage from './components/landingpage/Landingpage';
+import LoginPage from './components/landingpage/Loginpage';
+import AddUserPage from './components/landingpage/Adduserpage';
+// import Navbar from './components/landingpage/Navbar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (
-
-<UncontrolledComponents/>  
+    <Router>
+      {/* <Navbar /> */}
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/add-user" element={<AddUserPage />} />
+      </Routes>
+    </Router>
   );
 };
 
