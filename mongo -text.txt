@@ -9,7 +9,7 @@ db.createCollection("user") - create a collection with name users
 
 CRUD - create read update delete 
 
-//create 
+//createe 
 
 db.users.insertOne({name :"salih"}) // creates a new document inside the 'user' collection 
 
@@ -17,7 +17,7 @@ db.users.insertMany[{name :"salih"}],[{name :"mosalih"}] // create multiple docu
 
 
 {
-name : "abc",
+name : "abcc",
 age :"20",
 }
 
@@ -32,7 +32,7 @@ skills: [ "Angular","React","MongoDB" ],
 address:{
          street: "Upper Street",
          house: "No 1",
-         city:"New York",
+         city:"New jersy",
          country: "USA"
 }});
 
