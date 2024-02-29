@@ -6,6 +6,9 @@ import LoginPage from './components/landingpage/Loginpage';
 import AddUserPage from './components/landingpage/Adduserpage';
 // import Navbar from './components/landingpage/Navbar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from './components/landingpage/Footer';
+
+
 
 const App = () => {
   return (
@@ -16,6 +19,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/add-user" element={<AddUserPage />} />
       </Routes>
+      {/* <Footer/> */}
     </Router>
   );
 };
