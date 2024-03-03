@@ -113,14 +113,17 @@ img {
 }
 
 #caption {
-  color: rgb(240, 248, 255);
+  color: rgb(16, 16, 16);
 }
 
 #projects {
   text-align: center;
   width: 100%;
   padding: 7rem .1rem;
-  background-color:#fff;
+  background-color:#f3f4f5;
+}
+#bottom-line{
+  background-color: #0b0b0b;
 }
 
 #projects .projects {
@@ -142,7 +145,7 @@ img {
 
 #bottom-line {
   height: 6px;
-  background-color: #fff;
+  background-color: rgb(16, 16, 16);
   width: 55%;
   border-radius: 10px;
   display: block;

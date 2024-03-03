@@ -24,7 +24,7 @@ const LandingPage = () => {
   <div className="project-tile">
     <h1 id="caption">"These are some of my projects"</h1>
     <br />
-    <div id="bottom-line" />
+    <div id="bottom-line"/>
     <div className="projects">
       <div className="box">
         <a
