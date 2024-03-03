@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   return (
@@ -18,7 +18,7 @@ const LoginPage = () => {
       <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
         <form>
           <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
-            <p className="lead fw-normal mb-0 me-3">Sign in with</p>
+            <p className="lead fw-normal mb-0 me-3 text-dark">Sign in with</p>
             <button type="button" className="btn btn-primary btn-floating mx-1">
               <i className="fab fa-facebook-f" />
             </button>
@@ -76,15 +76,15 @@ const LoginPage = () => {
           <div className="text-center text-lg-start mt-4 pt-2">
             <button
               type="button"
-              className="btn btn-primary btn-lg"
+              className="btn btn-primary btn-dark"
               style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}
             >
-              Login
+            <Link  to="/login">Login</Link>
             </button>
             <p className="small fw-bold mt-2 pt-1 mb-3">
               Don't have an account?{" "}
               <a href="#!" className="link-danger">
-                Register
+              <Link  to="/add-user">Signup</Link>
               </a>
             </p>
           </div>

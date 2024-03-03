@@ -27,6 +27,7 @@ img {
 }
 
 
+
 /* UTILITY CLASSES */
 .container {
   max-width: 1200px;
@@ -34,6 +35,8 @@ img {
   margin: auto;
   overflow: hidden;
 }
+
+
 
 .btn {
   text-decoration: none;

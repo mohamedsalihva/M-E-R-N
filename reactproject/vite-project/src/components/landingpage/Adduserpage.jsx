@@ -48,6 +48,19 @@ const handleclick =()=>{
                     </div>
                   </div>
                   <div className="d-flex flex-row align-items-center mb-4">
+                    <i className="fas fa-envelope fa-lg me-3 fa-fw" />
+                    <div className="form-outline flex-fill mb-0">
+                      <input
+                        type="Address"
+                        id="form3Example3c"
+                        className="form-control"
+                      />
+                      <label className="form-label" htmlFor="form3Example3c">
+                        Address
+                      </label>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-row align-items-center mb-4">
                     <i className="fas fa-lock fa-lg me-3 fa-fw" />
                     <div className="form-outline flex-fill mb-0">
                       <input

@@ -15,7 +15,7 @@ const LandingPage = () => {
       <Navbar/>
     <header id="about">
     <div id="welcome-section" class="container">
-      <h1 id="title">I am REACT</h1>
+      <h1 id="title">I am MOSalih</h1>
       <p class="lead"><em>a full-stack web developer</em></p>
     </div>
   </header>

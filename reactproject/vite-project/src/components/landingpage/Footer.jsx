@@ -17,7 +17,7 @@ function Footer() {
           <a
             id="profile-link"
             target="_blank"
-            href="https://www.github.com/afifone"
+            href="https://github.com/mohamedsalihva/MERN.git"
           >
             <i className="fab fa-github fa-1x" />
             Github
@@ -42,12 +42,6 @@ function Footer() {
   <footer id="main-footer">
     <div className="container">
       <p>© Copyright Free</p>
-      <p id="creator">
-        This site recreated by{" "}
-        <a href="https://github.com/FreeCodeCamp-Solutions/">
-          FreeCodeCamp-Solutions
-        </a>
-      </p>
     </div>
   </footer>
 </>
