@@ -4,7 +4,6 @@ import React from 'react';
 const AddUserPage = () => {
 const handleclick =()=>{
     alert(`user added succesfully`)
-    console.log()
 }
 
   return (

@@ -13,13 +13,13 @@ const LandingPage = () => {
   return (
     <div>
       <Navbar/>
-      <header id="about" style={{ backgroundColor: '#007bff', color: '#fff', paddingTop: '80px', paddingBottom: '80px' }}>
-        <div className="container text-center">
-          <h1 id="title" style={{ fontSize: '3rem', marginBottom: '20px', fontWeight: 'bold' }}>Welcome to My Portfolio</h1>
-          <p className="lead mb-4" style={{ fontSize: '1.5rem' }}>I am MOSalih, a full-stack web developer</p>
-          <a href="#contact" className="btn btn-light btn-lg" style={{ color: '#007bff', fontWeight: 'bold', borderRadius: '25px', padding: '15px 30px', fontSize: '1.2rem' }}>Get in Touch</a>
+      <header id="about">
+        <div class="container text-center">
+            <h1 id="title">Welcome to My Portfolio</h1>
+            <p class="lead mb-4">I am MOSalih, a full-stack web developer</p>
+            <a href="#contact" class="btn btn-light btn-lg">Get in Touch</a>
         </div>
-      </header>
+    </header>
   <section id="projects">
   <div className="project-tile">
     <h1 id="caption">"These are some of my projects"</h1>
