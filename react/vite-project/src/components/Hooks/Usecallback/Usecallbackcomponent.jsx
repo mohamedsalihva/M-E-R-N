@@ -19,7 +19,7 @@ function Usecallbackcomponent() {
 
 function Childcomponent({onClick}){
     console.log("child re rendering...");
-    return<button onClick={onClick}>increment</button>
+    return<button onClick={onClick}>add</button>
 }
 
 export default Usecallbackcomponent
