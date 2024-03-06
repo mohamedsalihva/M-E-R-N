@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Authservice from '../../services/Authservice';
+
 
 const LoginPage = () => {
+     const [email,setEmail]= useState('');
+     const [password,setPassword] = useState('');
+     const [error,setError]= useState('');
+     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+const handlelogin =async ()=>{
+  try {
+   const token = await Authservice.login(email,password);
+   localStorage.setItem('token',token)
+   setIsLoggedIn(true);
+
+  } catch (error) {
+    setError("login failed");
+      setEmail('');
+      setPassword('');
+      alert('Login failed. Please check your credentials.');
+  }
+}
+
+if (isLoggedIn) {
+  window.location.href = '/landing-page';
+}
+
+  
   return (
     <div>
-
+   <form action="post">
       <section className="vh-100 mt-5">
   <div className="container-fluid h-custom">
     <div className="row d-flex justify-content-center align-items-center h-100">
@@ -34,6 +60,7 @@ const LoginPage = () => {
           </div>
           {/* Email input */}
           <div className="form-outline mb-4">
+           
             <input
               type="email"
               id="form3Example3"
@@ -55,7 +82,9 @@ const LoginPage = () => {
             <label className="form-label" htmlFor="form3Example4">
               Password
             </label>
+            
           </div>
+          
           <div className="d-flex justify-content-between align-items-center">
             {/* Checkbox */}
             <div className="form-check mb-0">
@@ -69,24 +98,24 @@ const LoginPage = () => {
                 Remember me
               </label>
             </div>
-            <a href="#!" className="text-body">
+            <div href="#!" className="text-body">
               Forgot password?
-            </a>
+            </div>
           </div>
           <div className="text-center text-lg-start mt-4 pt-2">
             <button
               type="button"
               className="btn btn-primary btn-dark"
               style={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}
-            >
-            <Link  to="/login">Login</Link>
+              onClick={handlelogin}>
+       login
             </button>
-            <p className="small fw-bold mt-2 pt-1 mb-3">
+            <div className="small fw-bold mt-2 pt-1 mb-3">
               Don't have an account?{" "}
-              <a href="#!" className="link-danger">
+              <div href="#!" className="link-danger">
               <Link  to="/add-user">Signup</Link>
-              </a>
-            </p>
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -116,6 +145,7 @@ const LoginPage = () => {
     {/* Right */}
   </div>
 </section>
+  </form>
 
     </div>
   );

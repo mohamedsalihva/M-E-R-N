@@ -2,7 +2,7 @@ const users = require("../db/models/users");
 const success_function = require("../utils/response-handler").success_function;
 const error_function = require("../utils/response-handler").error_function;
 const jwt = require('jsonwebtoken');
-const bcrypt=require('bcrypt')
+ const bcrypt=require('bcrypt')
 
 
 exports.login = async function(req, res) {
